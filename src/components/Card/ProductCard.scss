@@ -1,44 +1,13 @@
-.product-card {
-  margin: 20px;
-  text-align: center;
+#font-card{
+  font-size: 16px;
+}
+.price{
+  font-size: 12px;
 }
 
-.product-card img {
-  max-height: 200px;
-  object-fit: cover;
+.color-price{
+  color: #ef683a;
 }
-
-.price {
-  margin-top: 10px;
-}
-
-.discounted-price {
-  color: red;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.original-price {
-  text-decoration: line-through;
-  color: grey;
-  margin-right: 10px;
-}
-
-.discount-percentage {
-  color: green;
-  font-size: 0.9em;
-}
-
-.ratings {
-  color: #f39c12;
-  margin-top: 10px;
-}
-
-.sold {
-  margin-top: 10px;
-}
-
-.font-card{
-  font-size: 10px;
+.color-start{
+  color: #ef683a;
 }
