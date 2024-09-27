@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Dropdown from 'react-multilevel-dropdown';
+import "./DropdownNav.scss";
 
-export const DropdownNav = () => {
+export const DropdownNav = ({ category }: { category: string }) => {
   const [listItem, setListItem] = useState<string[]>([
     "item1", "item2", "item3", "item4", "item5", "item6", "item7"
   ]);
@@ -21,13 +22,14 @@ export const DropdownNav = () => {
   };
 
   return (
-    <Dropdown title='Dropdown title'>
+    <div id="dropdown">
+    <Dropdown title={category}>
       {listItem.map((item, index) => (
         <Dropdown.Item key={index} onClick={() => handleItemClick(item)}>
           {item}
           {/* Hiển thị submenu cho item 1 và item 2 */}
           {index === 0 && (
-            <Dropdown.Submenu>
+            <Dropdown.Submenu className='xxx'>
               {subItem1.map((sub, subIndex) => (
                 <Dropdown.Item key={subIndex} onClick={() => handleSubItemClick(sub)}>
                   {sub}
@@ -47,5 +49,6 @@ export const DropdownNav = () => {
         </Dropdown.Item>
       ))}
     </Dropdown>
+    </div>
   );
 };

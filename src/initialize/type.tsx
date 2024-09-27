@@ -35,3 +35,7 @@ export type Login = {
   username?: string;
   password?: string;
 }
+
+export type Banner = {
+  name?:string;
+}

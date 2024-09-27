@@ -1,30 +1,40 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Product } from '../../initialize/type';
-import DefaultImg from '../../assets/DefaultImg.jpg';
+import React from "react";
+import Card from "react-bootstrap/Card";
+import card from "../../assets/card.jpg";
+import { StarOutlined } from "@ant-design/icons";
 
-interface ProductCardProps{
-    product: Product;
-     imageName:string;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ product, imageName }) =>{
-      return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={DefaultImg} />
+const ProductCard: React.FC = () => {
+  return (
+    <Card style={{ width: "18rem", borderColor: "#fff" }}> 
+      <Card.Img variant="top" src={card} alt="anh vi du" />
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title> 
-        <Card.Text>
-          {product.productId}
+        <Card.Title>
+          <span>Giường Ngủ Gỗ Tràm MOHO HOBRO 301</span>
+        </Card.Title>
+        <Card.Text> 
+          <span className="price">8,992,500₫ </span>
+          <span
+            className="sale-price"
+            style={{
+              textDecoration: "line-through",
+              color: "grey",
+              marginLeft: "10px",
+            }}
+          >
+            11,990,000₫
+          </span>
         </Card.Text>
         <Card.Text>
-          {imageName}
+          <StarOutlined />
+          <StarOutlined />
+          <StarOutlined />
+          <StarOutlined />
+          <StarOutlined />
+          <span> Đã bán</span>
         </Card.Text>
-
-        <Button variant="primary">Go somewhere</Button>
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default ProductCard;

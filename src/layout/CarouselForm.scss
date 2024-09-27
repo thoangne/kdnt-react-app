@@ -1,0 +1,10 @@
+.carousel-item {
+    height: 450px; /* Chiều cao cố định cho mỗi slide */
+  }
+  
+  .carousel-item img {
+    width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều ngang */
+    height: 100%; /* Chiều cao ảnh chiếm toàn bộ chiều cao của slide */
+    object-fit: cover; /* Đảm bảo ảnh vừa khít mà không bị méo */
+  }
+  

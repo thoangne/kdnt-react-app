@@ -1,0 +1,32 @@
+.full-width-row {
+    width: 100%;
+    padding: 0; /* Đảm bảo không có khoảng cách giữa các phần tử */
+  }
+  
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  .no-gutters > .col,
+  .no-gutters > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .equal-height {
+    display: flex;
+  }
+  
+  .equal-height .Col-left,
+  .equal-height .Col-right {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .column-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding-top: 10px;
+  }
+    
