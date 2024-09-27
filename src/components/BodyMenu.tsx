@@ -13,9 +13,12 @@ interface BannerPros{
 const BodyMenu: React.FC<BannerPros> = ({ bannerName}) =>{
     return (
     <Container>
-      <Row>
-            <Col>{bannerName.name}</Col>
-      </Row>
+<Row className="row-gap">
+  <Col className="d-flex justify-content-between align-items-center">
+    <h2 className="text-gap">{bannerName.name}</h2>
+    <a className="text-ep" href="">Xem thêm</a>
+  </Col>
+</Row>
       <Row className="equal-height">
         <Col className="Col-left" sm={4}>
           <img className="column-img" src={imgaView2} alt="" />

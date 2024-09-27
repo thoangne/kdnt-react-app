@@ -9,10 +9,10 @@ const ProductCard: React.FC = () => {
       <Card.Img variant="top" src={card} alt="anh vi du" />
       <Card.Body>
         <Card.Title>
-          <span>Giường Ngủ Gỗ Tràm MOHO HOBRO 301</span>
+          <span className="font-card">Giường Ngủ Gỗ Tràm MOHO HOBRO 301</span>
         </Card.Title>
         <Card.Text> 
-          <span className="price">8,992,500₫ </span>
+          <span className="price font-card">8,992,500₫ </span>
           <span
             className="sale-price"
             style={{

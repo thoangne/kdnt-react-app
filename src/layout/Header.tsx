@@ -13,6 +13,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CarouselForm from "./CarouselForm";
+import { DropdownNav } from "../components/DropdownNav";
 
 function Header() {
   return (
@@ -82,6 +83,34 @@ function Header() {
       </div>
     </Col>
   </Row>
+</Container>
+<Container className="d-flex justify-content-center">
+  <ul id="header-list__nav" className="header-list__list d-flex align-self-end">
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+    <li className="header-list__list-item">
+      <DropdownNav category="Sản phẩm"></DropdownNav>
+    </li>
+  </ul>
 </Container>
   <CarouselForm />
 </Navbar>
