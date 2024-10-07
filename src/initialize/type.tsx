@@ -39,3 +39,12 @@ export type Login = {
 export type Banner = {
   name?:string;
 }
+
+
+export type Filter = {
+  minPrice: number | null,
+  maxPrice: number | null,
+  color: string | null,
+  size: string | null,
+  subCategory: string | null
+}

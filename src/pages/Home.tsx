@@ -4,15 +4,13 @@ import BodyMenu from '../components/BodyMenu';
 import ListItem from '../components/ListItem';
 import Footer from '../layout/Footer';
 import { Banner } from '../initialize/type';
-// import InputForm from './components/InputForm';
-// import { CarouselCard } from './components/Card/CarouselCard';
+
 
 
 function Home() {
    const bannerData: Banner = {
     name: "Menu chính", 
   };
-
   return (
     <>
     <Header  />
