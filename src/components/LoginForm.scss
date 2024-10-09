@@ -5,13 +5,13 @@
 
 .custom-image-col {
   padding: 0;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
 }
 
 .custom-form-col {
   padding: 20px;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8e8;
 }
 
 .custom-btn{
@@ -23,4 +23,10 @@
 }
 .custom-text {
   text-align: center; /* Căn chữ chính giữa */
+}
+.pm-100{
+  padding: 100px 60px;
+}
+.mb-100{
+  margin-bottom: 100px;
 }

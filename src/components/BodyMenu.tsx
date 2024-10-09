@@ -15,7 +15,7 @@ const BodyMenu: React.FC<BannerPros> = ({ bannerName}) =>{
     <Container>
 <Row className="row-gap">
   <Col className="d-flex justify-content-between align-items-center">
-    <h2 className="text-gap">{bannerName.name}</h2>
+    <span className="text-caption">{bannerName.name}</span>
     <a className="text-ep" href="">Xem thêm</a>
   </Col>
 </Row>

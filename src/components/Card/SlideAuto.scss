@@ -1,0 +1,19 @@
+.custom-card {
+    margin: 0;            /* Remove spacing between cards */
+    border: none;         /* Remove border */
+    box-shadow: none;     /* Remove box-shadow if any */
+    width: 100px;
+    height: 100px;          /* Ensure card takes full width inside slider */
+  }
+  
+  .slick-slide {
+    padding: 0;           /* Remove padding from each slide */
+  }
+  
+  .slick-track {
+    display: flex;
+  }
+  
+  .slick-slide > div {
+    margin: 0;            /* Remove any margin around each card container */
+  }

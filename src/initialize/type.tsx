@@ -23,12 +23,13 @@ export type User = {
   firstName: string,
   lastName: string,
   email: string,
-  phoneNumber: string,
+  phoneNumber: number,
   username: string,
-  // password: string,
+  password: string,
   createAt: Date,
   status: boolean,
-  roles: string
+  roles: string,
+  gender:string
 }
 
 export type Login = {
@@ -40,11 +41,11 @@ export type Banner = {
   name?:string;
 }
 
-
-export type Filter = {
-  minPrice: number | null,
-  maxPrice: number | null,
-  color: string | null,
-  size: string | null,
-  subCategory: string | null
+export type Resgister ={
+  firstName?: string,
+  lastName?: string,
+  email?: string,
+  phoneNumber?: number,
+  password?: string,
+  gender?:string
 }

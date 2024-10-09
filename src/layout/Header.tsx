@@ -112,7 +112,6 @@ function Header() {
     </li>
   </ul>
 </Container>
-  <CarouselForm />
 </Navbar>
     // <Navbar id="header" bg="light" expand="lg" className="d-block">
     //   <div id="header-top">
