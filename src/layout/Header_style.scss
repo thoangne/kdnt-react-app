@@ -30,6 +30,7 @@
 }
 .icon-user{
     font-size: 25px;
+    color: #000;
 }
 #header-bottom__container-account-access-text{
     text-wrap: nowrap;
@@ -64,4 +65,66 @@
 }
 #header-list__nav{
     margin-bottom: 0;   
+}
+#dropdown-cust{
+    background-color: #f8f9fa;
+    border: #f8f9fa;
+}
+.text-under{
+    text-decoration: none;
+    list-style: none;
+    color: #000;
+}
+.custom-btn-login{
+    background-color: #1d1c21;
+    border: #1d1c21;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid #1d1c21;
+}
+.login{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.reg{
+    margin-bottom: 10px;
+}
+.custom-btn-login:hover{
+    background-color: #1d1c21;
+    opacity: 0.5;
+    color: white;
+    border: none;
+    transition: 0s;
+}
+.w-menu{
+    min-width: 240px;
+    border-radius: 0;
+
+}
+.text-cust{
+    font-size: 20px;
+    font-weight: 500;
+    
+}
+.bor-line{
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+.bor-line::after {
+    content: "";
+    display: block;
+    margin-top: 10px;
+    height: 0.5px; /* Độ dày của đường kẻ */
+    background-color: #888888; /* Màu sắc của đường kẻ */
+    width: 100%; /* Chiều rộng của đường kẻ bằng 100% chiều rộng phần tử cha */
+  }
+
+  .t-under{
+    font-size: 18px;
+  }
+  .-name{
+    font-weight: 500    ;
+  }
+.row-m{
+    margin-bottom: 10px;
 }

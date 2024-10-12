@@ -50,6 +50,7 @@ export type User = {
   status: boolean,
   roles: string,
   gender:string
+  dayofbirth: Date
 }
 
 export type Login = {

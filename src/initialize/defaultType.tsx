@@ -32,3 +32,19 @@ export const ResgisterDefault:Resgister = {
   password:"" ,
   gender:""
 }
+
+export const UserDefault:User = {
+  userId: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+  username: "",
+  password: "",
+  createAt: "",
+  status: "",
+  roles: "",
+  gender:"",
+  dayofbirth: ""
+}
+

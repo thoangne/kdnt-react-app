@@ -1,0 +1,47 @@
+.cap-info::after{
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    margin: 50px auto 0;
+    background: #252a2b;
+    margin-bottom: 20px;
+}
+.cap-info{
+    font-size: 38px;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    display: block;
+}
+.account-cust{
+    margin-bottom: 15px;
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    position: relative;
+}
+.list-unstyle{
+    padding-left: 0;
+    list-style: none;
+}
+.list-cur{
+    color: #434343;
+    text-decoration: none;
+    outline: none;
+}
+.list-cur:hover{
+    text-decoration: underline;
+}
+
+.btn-submit{
+    color: #fff
+}
+
+.cust-row{
+    padding: 10px 0;
+    border-bottom: 1px dotted #dfe0e1;
+}
+.w-50p{
+    width: 40%
+}
