@@ -20,8 +20,8 @@ export const ProductDefault: Product = {
   category: CategoryDefault
 };
 export const LoginDefalt: Login = {
-  username: "aaaa",
-  password: "aaa"
+  username: "",
+  password: ""
 }
 
 export const ResgisterDefault:Resgister = {

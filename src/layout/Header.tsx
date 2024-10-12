@@ -14,8 +14,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CarouselForm from "./CarouselForm";
 import { DropdownNav } from "../components/DropdownNav";
+import { Link } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 function Header() {
+  const { myInfo } = useUserContext();
   return (
     <Navbar id="header" bg="light" expand="lg" className="d-block">
       <div id="header-top">
@@ -66,8 +69,18 @@ function Header() {
       >
         <UserOutlined className="icon-user" />
         <div id="header-bottom__container-account-access" className="ms-2 mr-10">
-          <span className="d-block">Đăng nhập/Đăng ký</span>
-          <span className="d-block">Tài khoản của tôi</span>
+          {
+            myInfo ? (
+              <Link to ="/"><div>
+                <span className="d-block">Chào, {myInfo.firstName}</span>
+              </div></Link>) : 
+            (<Link to ="/login"><div>
+              <span className="d-block">Đăng nhập/Đăng ký</span>
+              <span className="d-block">Tài khoản của tôi</span>  
+            </div></Link>)
+          }
+          
+          
         </div>
       </div>
 
@@ -87,28 +100,28 @@ function Header() {
 <Container className="d-flex justify-content-center">
   <ul id="header-list__nav" className="header-list__list d-flex align-self-end">
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Doanh mục"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
     <li className="header-list__list-item">
-      <DropdownNav category="Sản phẩm"></DropdownNav>
+      <DropdownNav title="Sản phẩm"></DropdownNav>
     </li>
   </ul>
 </Container>

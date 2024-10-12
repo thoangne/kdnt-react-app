@@ -5,18 +5,16 @@ import ListItem from '../components/ListItem';
 import Footer from '../layout/Footer';
 import { Banner } from '../initialize/type';
 
-
-
 function Home() {
-   const bannerData: Banner = {
-    name: "Menu chính", 
-  };
+  const bannerData: Banner = {
+    name: "Menu chính",
+ };
   return (
     <>
-    <Header  />
-      <BodyMenu bannerName={bannerData} /> 
-      <ListItem></ListItem> 
-      <Footer></Footer>
+      <Header />
+      <BodyMenu bannerName={bannerData} />
+      <ListItem />
+      <Footer />
     </>
   );
 }

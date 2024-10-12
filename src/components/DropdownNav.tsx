@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropdown from 'react-multilevel-dropdown';
 import "./DropdownNav.scss";
+import { fetchAllCategory } from '../services/CategoryService';
+import { Category } from '../initialize/type';
 
-export const DropdownNav = ({ category }: { category: string }) => {
+export const DropdownNav = ({ title }: { title: string }) => {
+  const [listCategory, setListCategory] = useState<Category[]>([]);
   const [listItem, setListItem] = useState<string[]>([
     "item1", "item2", "item3", "item4", "item5", "item6", "item7"
   ]);
-  const [subItem1, setSubItem1] = useState<string[]>([
-    "subItem1", "subItem2", "subItem3", "subItem4", "subItem5", "subItem6", "subItem7"
-  ]);
-  const [subItem2, setSubItem2] = useState<string[]>([
-    "subItem1", "subItem2", "subItem3", "subItem4", "subItem5", "subItem6", "subItem7"
-  ]);
+
+  useEffect(() => {
+    if (title === "Doanh mục") {
+      getAllCategory();
+    }
+  }, [title]);
+
+  const getAllCategory = async () => {
+    try {
+      const res = await fetchAllCategory();
+      if (res && res.data && res.data.data) {
+        setListCategory(res.data.data);
+        console.log("Fetched categories:", res.data.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
 
   const handleItemClick = (item: string) => {
     console.log("Item clicked:", item);
@@ -23,32 +38,32 @@ export const DropdownNav = ({ category }: { category: string }) => {
 
   return (
     <div id="dropdown">
-    <Dropdown title={category}>
-      {listItem.map((item, index) => (
-        <Dropdown.Item key={index} onClick={() => handleItemClick(item)}>
-          {item}
-          {/* Hiển thị submenu cho item 1 và item 2 */}
-          {index === 0 && (
-            <Dropdown.Submenu className='xxx'>
-              {subItem1.map((sub, subIndex) => (
-                <Dropdown.Item key={subIndex} onClick={() => handleSubItemClick(sub)}>
-                  {sub}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Submenu>
-          )}
-          {index === 1 && (
-            <Dropdown.Submenu>
-              {subItem2.map((sub, subIndex) => (
-                <Dropdown.Item key={subIndex} onClick={() => handleSubItemClick(sub)}>
-                  {sub}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Submenu>
-          )}
-        </Dropdown.Item>
-      ))}
-    </Dropdown>
+      {title === "Doanh mục" ? (
+        <Dropdown title={title}>
+          {listCategory.map((category, index) => (
+            <Dropdown.Item key={index} onClick={() => handleItemClick(category.categoryName)}>
+              {category.categoryName}
+              {category.subCategory && category.subCategory.length > 0 && (
+                <Dropdown.Submenu className='xxx'>
+                  {category.subCategory.map((sub, subIndex) => (
+                    <Dropdown.Item key={subIndex} onClick={() => handleSubItemClick(sub.name)}>
+                      {sub.name}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Submenu>
+              )}
+            </Dropdown.Item>
+          ))}
+        </Dropdown>
+      ) : (
+        <Dropdown title={title}>
+          {listItem.map((item, index) => (
+            <Dropdown.Item key={index} onClick={() => handleItemClick(item)}>
+              {item}
+            </Dropdown.Item>
+          ))}
+        </Dropdown>
+      )}
     </div>
   );
 };

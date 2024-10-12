@@ -2,39 +2,49 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import noithat from "../assets/noithat.jpg";
 import "./LoginForm.scss";
-import { Login } from "../../initialize/type";
 import { LoginDefalt } from "../initialize/defaultType";
 import FormInput from "./Card/FormInput";
-
-
+import { LoginAPI } from "../services/AuthorService";
+import { Login } from "../initialize/type";
+import {setToken} from "../services/TokenService"
+import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
-
-  const [Logininfo,setLoginInfo] = useState<Login>({LoginDefalt});
+  const [Logininfo, setLoginInfo] = useState<Login>(LoginDefalt);
   const [error, setError] = useState<string>("");
+  
+  const navigate = useNavigate();
+
+  const LoginHandler = async (Logininfo: Login) => {
+    console.log(Logininfo);
+    try {
+      const res = await LoginAPI(Logininfo);
+      setToken(res.data.data.token);
+      navigate("/home");
+    } catch (err) {
+      console.error("Lỗi đăng nhập:", err);
+      setError("Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập.");
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     // Kiểm tra email/số điện thoại và mật khẩu
     if (!Logininfo.username || !Logininfo.password) {
       setError("Vui lòng nhập email hoặc số điện thoại và mật khẩu.");
       return;
     }
 
-    // Reset lỗi và xử lý đăng nhập
+    LoginHandler(Logininfo);
+
+    // Reset lỗi khi không có lỗi
     setError("");
     console.log("Đăng nhập với", Logininfo.username, Logininfo.password);
-    // Thêm logic cho quá trình đăng nhập thực tế tại đây (API call, v.v.)
   };
 
   return (
-    <Container
-      className=""
-    >
-      <Row
-        className="justify-content-center  g-0 mb-100"
-      >
+    <Container>
+      <Row className="justify-content-center g-0 mb-100">
         <Col md={6} className="d-none d-md-block custom-form-col custom-image-col pm-100">
           <img src={noithat} alt="Nội thất" className="img-fluid w-100" />
         </Col>
@@ -46,27 +56,27 @@ const LoginForm: React.FC = () => {
           <Form onSubmit={handleSubmit}>
             <FormInput
               controlid="username-input"
-              caption="Emai hoặc số điện thoại"
+              caption="Email hoặc số điện thoại"
               type="text"
               placeholder="Nhập email hoặc số điện thoại"
               value={Logininfo.username}
-              onChange={(e) => setLoginInfo({...Logininfo,username:e.target.value})}
-            ></FormInput>
+              onChange={(e) => setLoginInfo({ ...Logininfo, username: e.target.value })}
+            />
             <FormInput
               controlid="password-input"
               caption="Mật khẩu"
               type="password"
               placeholder="Nhập mật khẩu"
               value={Logininfo.password}
-              onChange={(e) => setLoginInfo({...Logininfo,password:e.target.value})}
-            ></FormInput>
+              onChange={(e) => setLoginInfo({ ...Logininfo, password: e.target.value })}
+            />
 
             <p className="text-muted">
               Website được bảo vệ bởi reCAPTCHA và{" "}
               <a href="#">Chính sách bảo mật</a> và{" "}
               <a href="#">Điều khoản dịch vụ của Google</a>.
             </p>
-            <div className=" f-right d-flex ">
+            <div className="f-right d-flex">
               <Button className="custom-btn" variant="primary" type="submit">
                 Đăng nhập
               </Button>
@@ -78,7 +88,7 @@ const LoginForm: React.FC = () => {
               <p style={{ textAlign: "center" }}>
                 Quên mật khẩu? <a href="/forgot-password">Khôi phục mật khẩu</a>
               </p>
-            </div>{" "}
+            </div>
           </Form>
         </Col>
       </Row>
