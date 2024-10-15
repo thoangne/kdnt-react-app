@@ -14,6 +14,27 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.dropdown-custom:hover{
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #e7e7e7;
+}
+.dropdown-custom:active{
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #e7e7e7;
+
+}
+.dropdown-custom:focus{
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #e7e7e7;
+
+}
+
+
+
 .bo-loc{
     display: flex;
     align-items: center;
