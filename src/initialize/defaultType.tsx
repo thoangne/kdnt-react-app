@@ -1,4 +1,4 @@
-import  {Product,Category, Login, User, Resgister}  from "./type";
+import  {Product,Category, Login, User, Resgister, FilerObject}  from "./type";
 
 export const CategoryDefault:Category = {
     categoryId: "hello",
@@ -47,5 +47,13 @@ export const UserDefault:User = {
   roles: "",
   gender:"",
   dayofbirth: ""
+}
+
+export const FilerObjectDefault:FilerObject ={
+  minPrice: "",
+  maxPrice: "",
+  color: "",
+  size:0,
+  subCategory: "",
 }
 

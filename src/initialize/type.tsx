@@ -76,7 +76,7 @@ export type FilerObject ={
   minPrice?: string,
   maxPrice?: string,
   color?: string,
-  size?: number,
+  size?: string,
   subCategory?: string,
 }
 
