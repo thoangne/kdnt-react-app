@@ -29,6 +29,7 @@ export const ResgisterDefault:Resgister = {
   lastName:"" ,
   email: "",
   phoneNumber: undefined,
+  username:"" ,
   password:"" ,
   gender:""
 }

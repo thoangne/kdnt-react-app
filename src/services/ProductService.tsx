@@ -12,9 +12,16 @@ export const searchProduct = (keyword:string) => {
     return axios.get(`/products/search${keyword}`);
 }
 
-export const fetchProductById = (productId: string) => {
-    return axios.get(`/products${productId}`);
-}
+export const fetchProductById = async (productId: string) => {
+  try {
+      const response = await axios.get(`/products/${productId}`);
+      return response.data;
+  } catch (error) {
+      console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+      throw error;
+  }
+};
+
 
 export const deleteProductById = (productId: string) => {
   return axios.get(`/products${productId}`);

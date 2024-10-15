@@ -5,13 +5,16 @@ import { SwapLeftOutlined } from "@ant-design/icons";
 import { Resgister } from "../initialize/type";
 import { ResgisterDefault } from "../initialize/defaultType";
 import FormInput from "./Card/FormInput";
+import { RegisterAPI } from "../services/UserService";
+import { useNavigate } from "react-router-dom";
 
 
 const RegistrationForm: React.FC = () => {
   const [RegistrationInput, setRegistrationInput] = useState<Resgister>(ResgisterDefault); // Corrected initialization
   const [error, setError] = useState<string>("");
+  const navigation = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic form validation
@@ -22,6 +25,12 @@ const RegistrationForm: React.FC = () => {
 
     setError("");
     console.log("Đăng ký thành công với:", RegistrationInput);
+
+    const res = await RegisterAPI(RegistrationInput);
+    if(res && res.data){
+      navigation("/login");
+    }
+
     // Reset form or perform other actions as necessary
   };
 
@@ -87,8 +96,16 @@ const RegistrationForm: React.FC = () => {
               placeholder="Email"
               value={RegistrationInput.email}
               onChange={(e) => setRegistrationInput({ ...RegistrationInput, email: e.target.value })}
-              
+            />
 
+
+            <FormInput
+              controlid="username-input"
+              caption=""
+              type="text"
+              placeholder="Tên đăng nhập"
+              value={RegistrationInput.username}
+              onChange={(e) => setRegistrationInput({ ...RegistrationInput, username: e.target.value })}
             />
 
             <FormInput

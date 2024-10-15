@@ -6,6 +6,7 @@ import "./ListItem.scss";
 import { useEffect, useState } from "react";
 import { Product } from "../initialize/type";
 import { fetchAllProduct } from "../services/ProductService";
+import { Link } from "react-router-dom";
 
 function ListItem() {
   const [listProduct, setListProduct] = useState<Product[]>([]);
@@ -39,7 +40,9 @@ function ListItem() {
         {listProduct && listProduct.length > 0 ? (
           listProduct.map((product) => (
             <Col key={product.productId} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <ProductCard product={product} />
+              <Link to = {`/product-detail/${product.productId}`}>
+                <ProductCard product={product} />
+              </Link>
             </Col>
           ))
         ) : (

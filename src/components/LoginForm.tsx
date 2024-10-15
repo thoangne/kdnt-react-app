@@ -21,6 +21,7 @@ const LoginForm: React.FC = () => {
       const res = await LoginAPI(Logininfo);
       setToken(res.data.data.token);
       navigate("/home");
+      window.location.reload()
     } catch (err) {
       console.error("Lỗi đăng nhập:", err);
       setError("Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập.");

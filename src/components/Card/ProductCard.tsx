@@ -5,6 +5,7 @@ import DefaultImg from "../../assets/DefaultImg.jpg";
 import { StarOutlined } from "@ant-design/icons";
 import './ProductCard.scss';
 import { Product } from "../../initialize/type";
+import { downloadFileS3 } from "../../services/StorageService";
 
 interface ProductCardProps {
   product: Product;
@@ -23,21 +24,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   }, [productImage]);
 
   const handleDownload = async (imageName: string) => {
-    try {
-      const response = await fetch(`http://localhost:8081/file/download/${imageName}`, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      setImageUrl(url);
-    } catch (error) {
-      console.error('Error downloading file:', error);
-    }
+    const url = await downloadFileS3(imageName);
+    setImageUrl(url);
   };
 
   return (

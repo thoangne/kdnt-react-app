@@ -17,8 +17,19 @@ import { DropdownNav } from "../components/DropdownNav";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import Dropdown from "react-bootstrap/Dropdown";
+import { LogoutAPI } from "../services/AuthorService";
+import { getToken } from "../services/TokenService";
 function Header() {
   const { myInfo } = useUserContext();
+  const Logout = async() => {
+    const token = await getToken();
+    if (token) {
+      await LogoutAPI(token); // Gọi API logout với token
+      window.location.reload(); // Reload trang sau khi logout thành công
+    } else {
+      console.error("Không tìm thấy token");
+    }
+  }
   return (
     <Navbar id="header" bg="light" expand="lg" className="d-block">
       <div id="header-top">
@@ -80,14 +91,14 @@ function Header() {
                     id="header-bottom__container-account-access"
                     className="ms-2 mr-10"
                   >
-                      <div>
+                    {myInfo? ( <div className="d-block text-under">Chào, {myInfo.firstName}</div>): (<div>
                         <span className="d-block text-under">
                           Đăng nhập/Đăng ký
                         </span>
                         <span className="d-block text-under">
                           Tài khoản của tôi
                         </span>
-                      </div>
+                      </div>)}
                     
                   </div>
                 </div>
@@ -104,28 +115,28 @@ function Header() {
                         <Row className="row-cust row-m">
                           <Col>
                             <Link className="text-under" to="/">
-                              <span className="t-under-name">Chào, Vương</span>
+                              <span className="t-under-name">{myInfo.firstName + " " + myInfo.lastName}</span>
+                            </Link>
+                          </Col>
+                        </Row>
+                        <Row className="row-cust row-m">
+                          <Col>
+                            <Link className="text-under" to="/my-info">
+                              <span className="t-under-name">Tài khoản của bạn</span>
                             </Link>
                           </Col>
                         </Row>
                         <Row className="row-cust row-m">
                           <Col>
                             <Link className="text-under" to="/">
-                              <span className="t-under-name">Chào, Vương</span>
-                            </Link>
-                          </Col>
-                        </Row>
-                        <Row className="row-cust row-m">
-                          <Col>
-                            <Link className="text-under" to="/">
-                              <span className="t-under-name">Chào, Vương</span>
+                              <span className="t-under-name">Danh sách địa chỉ</span>
                             </Link>
                           </Col>
                         </Row>
                         <Row className="row-cust">
                           <Col>
                             <Link className="text-under" to="/">
-                              <span className="t-under-name">Đăng xuất</span>
+                            <Button onClick={Logout}>Đăng xuất</Button>
                             </Link>
                           </Col>
                         </Row>
@@ -143,7 +154,7 @@ function Header() {
                         </Row>
                         <Row>
                           <Col>
-                            <Link className="text-under" to="/login">
+                            <Link className="text-under" to="/register">
                               <Button className="custom-btn-login reg" variant="primary">
                                 Đăng kí
                               </Button>

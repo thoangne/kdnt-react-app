@@ -11,6 +11,21 @@ export const uploadImagetoS3 = (file: File) => {
     });
 }
 
-export const downloadFileS3 = (filename:string) => {
-    return axios.get(`/file/download${filename}`);
+export const downloadFileS3 = async(imageName:string) => {
+    try {
+        const response = await fetch(`http://localhost:8081/file/download/${imageName}`, {
+          method: 'GET',
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        // console.log(url);
+        return url;
+    } catch (error) {
+    console.error('Error downloading file:', error);
+    }
 }

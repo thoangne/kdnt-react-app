@@ -4,10 +4,12 @@ import "./MyInfo.scss";
 import FormInput from "../components/Card/FormInput";
 import { User } from "../initialize/type";
 import { UserDefault } from "../initialize/defaultType";
+import { useUserContext } from "../context/UserContext";
 
 const MyInfo: React.FC = () => {
   const [UserInfo, setUserInfo] = useState<User>(UserDefault);
   const [error, setError] = useState<string>("");
+  const {myInfo} = useUserContext();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +79,7 @@ const MyInfo: React.FC = () => {
                         caption="Email"
                         type="email"
                         placeholder="Nhập email của bạn"
-                        value={UserInfo.email}
+                        value={myInfo?.email}
                         onChange={(e) =>
                           setUserInfo({ ...UserInfo, email: e.target.value })
                         }
@@ -91,7 +93,7 @@ const MyInfo: React.FC = () => {
                         caption="Họ"
                         type="text"
                         placeholder="Nhập họ của bạn"
-                        value={UserInfo.firstName}
+                        value={myInfo?.firstName}
                         onChange={(e) =>
                           setUserInfo({
                             ...UserInfo,
@@ -108,7 +110,36 @@ const MyInfo: React.FC = () => {
                         caption="Tên"
                         type="text"
                         placeholder="Nhập tên của bạn"
-                        value={UserInfo.lastName}
+                        value={myInfo?.lastName}
+                        onChange={(e) =>
+                          setUserInfo({ ...UserInfo, lastName: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </Row>
+                  
+                  <Row>
+                    <Col>
+                      <FormInput
+                        controlid="name"
+                        caption="Tên đăng nhập"
+                        type="text"
+                        placeholder="Nhập tên của bạn"
+                        value={myInfo?.username}
+                        onChange={(e) =>
+                          setUserInfo({ ...UserInfo, lastName: e.target.value })
+                        }
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <FormInput
+                        controlid="name"
+                        caption="Mật khẩu"
+                        type="text"
+                        placeholder="Nhập tên của bạn"
+                        value={myInfo?.password}
                         onChange={(e) =>
                           setUserInfo({ ...UserInfo, lastName: e.target.value })
                         }

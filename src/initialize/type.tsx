@@ -67,6 +67,7 @@ export type Resgister ={
   lastName?: string,
   email?: string,
   phoneNumber?: number,
+  username?: string,
   password?: string,
   gender?:string
 }
