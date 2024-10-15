@@ -9,6 +9,7 @@ import MyInfo from './layout/MyInfo';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AccountPage from './pages/AccountPage';
 import { FillerProduct } from './components/FillerProduct';
+import { CheckOut } from './layout/CheckOut';
 
 
 const HanderRoutes = () => (
@@ -19,7 +20,7 @@ const HanderRoutes = () => (
     <Route path="/register" element={<RegisterPage />} />
     <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
     <Route path="/my-info" element={<AccountPage />} />
-    <Route path="/test" element={<FillerProduct />} />
+    <Route path="/test" element={<CheckOut />} />
 
 
   </Routes>
