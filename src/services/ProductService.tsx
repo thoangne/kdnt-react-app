@@ -1,15 +1,28 @@
 import axios from "./CustomizeAxios";
 import {FilerObject} from '../initialize/type';
-export const fetchAllProduct = () => {
-  return axios.get("/products");
+export const fetchAllProduct = async() => {
+  try{
+    const res = await axios.get("/products");
+    return res.data;
+  }catch(error){
+    console.error("Lỗi khi tìm kiếm sản phẩm:", error);
+    throw error;
+  }
 }
 
 export const fetchAllProductFilter = (filterObject: FilerObject) => {
     return axios.get(`/products/filter${filterObject}`);
 }
 
-export const searchProduct = (keyword:string) => {
-    return axios.get(`/products/search${keyword}`);
+export const searchProduct = async(keyword:string | null) => {
+  try{
+    const res = await axios.get(`/products/search${keyword}`);
+    return res.data;
+  }catch(error){
+      console.error("Lỗi khi tìm kiếm sản phẩm:", error);
+      throw error;
+  }
+    
 }
 
 export const fetchProductById = async (productId: string) => {

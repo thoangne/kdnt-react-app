@@ -16,13 +16,9 @@ function ListItem() {
   }, []);
 
   const getAllProduct = async () => {
-    try {
-      const products = await fetchAllProduct();
-      if (products && products.data && products.data.data) {
-        setListProduct(products.data.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch product:", error);
+    const products = await fetchAllProduct();
+    if (products && products && products.data) {
+      setListProduct(products.data);
     }
   };
 

@@ -19,6 +19,7 @@ import { useUserContext } from "../context/UserContext";
 import Dropdown from "react-bootstrap/Dropdown";
 import { LogoutAPI } from "../services/AuthorService";
 import { getToken } from "../services/TokenService";
+import { SearchProductComponent } from "../components/SearchProductComponent";
 function Header() {
   const { myInfo } = useUserContext();
   const Logout = async() => {
@@ -54,7 +55,8 @@ function Header() {
             </Navbar.Brand>
           </Col>
           <Col xs={4} className="d-flex justify-content-center">
-            <Form id="header-bottom__form" className="d-flex w-100">
+          <SearchProductComponent></SearchProductComponent>
+            {/* <Form id="header-bottom__form" className="d-flex w-100">
               <FormControl
                 type="search"
                 placeholder="Tìm kiếm sản phẩm..."
@@ -64,7 +66,7 @@ function Header() {
               <Button id="header-bottom__form-btn" variant="outline-success">
                 Search
               </Button>
-            </Form>
+            </Form> */}
           </Col>
           <Col
             xs={6}

@@ -25,6 +25,7 @@
     "react-dom": "^18.3.1",
     "react-multilevel-dropdown": "^4.0.0",
     "react-router-dom": "^6.26.2",
+    "react-select": "^5.8.1",
     "sass": "^1.79.3",
     "uuid": "^10.0.0"
   },
