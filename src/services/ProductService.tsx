@@ -14,17 +14,19 @@ export const fetchAllProductFilter = (filterObject: FilerObject) => {
     return axios.get(`/products/filter${filterObject}`);
 }
 
-export const searchProduct = async(keyword:string | null) => {
-  try{
-    const res = await axios.get(`/products/search${keyword}`);
+export const searchProduct = async (keyword: string | null) => {
+  try {
+    const res = await axios.get(`/products/search`, {
+      params: {
+        keyword: keyword, // Pass the keyword as a query parameter
+      },
+    });
     return res.data;
-  }catch(error){
-      console.error("Lỗi khi tìm kiếm sản phẩm:", error);
-      throw error;
+  } catch (error) {
+    console.error("Lỗi khi tìm kiếm sản phẩm:", error);
+    throw error;
   }
-    
-}
-
+};
 export const fetchProductById = async (productId: string) => {
   try {
       const response = await axios.get(`/products/${productId}`);

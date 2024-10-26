@@ -6,6 +6,7 @@ import { Category } from '../initialize/type';
 
 export const DropdownNav = ({ title }: { title: string }) => {
   const [listCategory, setListCategory] = useState<Category[]>([]);
+  console.log("xxxxxxxxxxx"+ listCategory);
   const [listItem, setListItem] = useState<string[]>([
     "item1", "item2", "item3", "item4", "item5", "item6", "item7"
   ]);
@@ -46,7 +47,7 @@ export const DropdownNav = ({ title }: { title: string }) => {
               {category.subCategory && category.subCategory.length > 0 && (
                 <Dropdown.Submenu className='xxx'>
                   {category.subCategory.map((sub, subIndex) => (
-                    <Dropdown.Item key={subIndex} onClick={() => handleSubItemClick(sub.name)}>
+                    <Dropdown.Item key={sub.id} onClick={() => handleSubItemClick(sub.name)}>
                       {sub.name}
                     </Dropdown.Item>
                   ))}

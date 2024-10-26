@@ -8,16 +8,21 @@ import { ProductDetail } from './layout/ProductDetail';
 import MyInfo from './layout/MyInfo';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AccountPage from './pages/AccountPage';
+import { FillerProduct } from './components/FillerProduct';
+import ShoppingCartPage from './pages/ShoppingCartPage';
+import { LoginPage } from './pages/LoginPage';
 
 
 const HanderRoutes = () => (
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/home" element={<Home />} />
-    <Route path="/login" element={<LoginForm />} />
+    <Route path="/login" element={<LoginPage />} />
     <Route path="/register" element={<RegisterPage />} />
     <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
     <Route path="/my-info" element={<AccountPage />} />
+    <Route path="/test" element={<ShoppingCartPage />} />
+
 
   </Routes>
 );

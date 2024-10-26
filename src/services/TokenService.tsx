@@ -18,3 +18,14 @@ export const setToken = (token: string) => {
   expires.setMinutes(expires.getMinutes() + 10);
   Cookies.set("token", token, { expires}); // Lấy token từ cookie
 };
+
+
+
+
+export const checkToken = async () => {
+  const token = await getToken();
+  if (!token) {
+    throw new Error("Token không tồn tại, vui lòng đăng nhập lại.");
+  }
+  return token;
+};

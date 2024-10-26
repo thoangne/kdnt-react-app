@@ -4,6 +4,7 @@ import BodyMenu from '../components/BodyMenu';
 import ListItem from '../components/ListItem';
 import Footer from '../layout/Footer';
 import { Banner } from '../initialize/type';
+import { SupportCard } from '../components/Card/SupportCard';
 
 function Home() {
   const bannerData: Banner = {
@@ -14,6 +15,7 @@ function Home() {
       <Header />
       <BodyMenu bannerName={bannerData} />
       <ListItem />
+      <SupportCard></SupportCard>
       <Footer />
     </>
   );

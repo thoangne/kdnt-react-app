@@ -1,79 +1,39 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { searchProduct } from '../services/ProductService';
+import { Product } from '../initialize/type';
 
-const Checkbox = ({ children, ...props }: JSX.IntrinsicElements['input']) => (
-  <label style={{ marginRight: '1em' }}>
-    <input type="checkbox" {...props} />
-    {children}
-  </label>
-);
 
 export const SearchProductComponent = () => {
-    // const colourOptions = ["vuong", "han", "che", "han"];
-    const colourOptions = [
-        { value: 'chocolate', label: 'Chocolate', },
-        { value: 'strawberry', label: 'Strawberry'},
-        { value: 'vanilla', label: 'Vanilla'}
-      ]
-  const [isClearable, setIsClearable] = useState(true);
-  const [isSearchable, setIsSearchable] = useState(true);
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isRtl, setIsRtl] = useState(false);
+  const [listProduct, setListProduct] = useState<{ value: string; label: string }[]>([]);
+
+  useEffect(() => {
+    const searchProductHandler = async (keyword: string | null) => {
+      const res = await searchProduct(keyword);
+      console.log("XXXXXXXXXXXXX1121212" + JSON.stringify(res.data.products));
+      if (res && res.data && res.data.products) {
+        // Transform the product list to include label
+        const productsWithLabels = res.data.products.map((product: Product) => ({
+          value: product.id, // or product.productId
+          label: product.name, // or any field that should be displayed
+        }));
+        setListProduct(productsWithLabels);
+      }
+    };
+
+    searchProductHandler("Tủ Quần Áo Gỗ MOHO");
+  }, []);
+
 
   return (
     <>
       <Select
         className="basic-single"
         classNamePrefix="select"
-        defaultValue={colourOptions[0]}
-        isDisabled={isDisabled}
-        isLoading={isLoading}
-        isClearable={isClearable}
-        isRtl={isRtl}
-        isSearchable={isSearchable}
-        name="color"
-        options={colourOptions}
+        defaultValue={listProduct[0]}
+        name="product"
+        options={listProduct}
       />
-
-      <div
-        style={{
-          color: 'hsl(0, 0%, 40%)',
-          display: 'inline-block',
-          fontSize: 12,
-          fontStyle: 'italic',
-          marginTop: '1em',
-        }}
-      >
-        {/* <Checkbox
-          checked={isClearable}
-          onChange={() => setIsClearable((state) => !state)}
-        >
-          Clearable
-        </Checkbox>
-        <Checkbox
-          checked={isSearchable}
-          onChange={() => setIsSearchable((state) => !state)}
-        >
-          Searchable
-        </Checkbox>
-        <Checkbox
-          checked={isDisabled}
-          onChange={() => setIsDisabled((state) => !state)}
-        >
-          Disabled
-        </Checkbox>
-        <Checkbox
-          checked={isLoading}
-          onChange={() => setIsLoading((state) => !state)}
-        >
-          Loading
-        </Checkbox>
-        <Checkbox checked={isRtl} onChange={() => setIsRtl((state) => !state)}>
-          RTL
-        </Checkbox> */}
-      </div>
     </>
   );
 };

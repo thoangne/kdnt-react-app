@@ -9,9 +9,12 @@ import { Product } from "../initialize/type";
 import { fetchProductById } from "../services/ProductService";
 import { downloadFileS3 } from "../services/StorageService";
 import Default_Image from "../assets/DefaultImg.jpg"; // Ảnh mặc định
+import AddCartButton from "../components/button/AddCartButton";
+import { useUserContext } from "../context/UserContext";
 
 
 export const ProductDetail = () => {
+  const {myInfo} = useUserContext();
   const [listImageUrl, setListImageUrl] = useState<string[]>([])
   const [mainImage, setMainImage] = useState<string>(Default_Image); // Đặt ảnh mặc định là ảnh chính
   const [product, setProduct] = useState<Product>();
@@ -95,9 +98,7 @@ export const ProductDetail = () => {
           {/* Nội dung chi tiết sản phẩm */}
           <Row className="cust-rw">
             <Col>
-              <Row>
-                <span className="text-cap">{product?.name}</span>
-              </Row>
+                <div className="text-cap">{product?.name}</div>
               <Row>
                 <Col xs={6}>
                   <StarFilled className="star-cust" />
@@ -116,13 +117,9 @@ export const ProductDetail = () => {
                   <span className="size-f">Đã bán: 000</span>
                 </Col>
               </Row>
-              <Row>
-                <Col>
-                  <span className="size-f">
+                  <div className="size-f">
                     <strong>SKU: {product?.productId}</strong>
-                  </span>
-                </Col>
-              </Row>
+                  </div>
             </Col>
           </Row>
 
@@ -162,6 +159,10 @@ export const ProductDetail = () => {
               </Row>
             </Col>
           </Row>
+
+          <AddCartButton 
+            specifications={product?.specifications[0]} 
+            user = {myInfo}/>
 
           {/* Các phần thông tin khác */}
           {/* ... */}

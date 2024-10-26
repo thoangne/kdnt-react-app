@@ -76,7 +76,7 @@ export type FilerObject ={
   minPrice?: string,
   maxPrice?: string,
   color?: string,
-  size?: number,
+  size?: string,
   subCategory?: string,
 }
 
@@ -91,4 +91,14 @@ export type MyInFo = {
   createAt: Date,
   status: boolean,
   roles: string,
+}
+
+
+export type ShoppingCart = {
+    productCartId: string,
+    createAt?: Date,
+    quantity?: number,
+    price?: number,
+    productName?: string,
+    specifications?: Specifications
 }
