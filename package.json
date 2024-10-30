@@ -16,7 +16,7 @@
     "@fontsource/roboto": "^5.1.0",
     "@mui/material": "^6.1.1",
     "@types/react-slick": "^0.23.13",
-    "antd": "^5.21.5",
+    "antd": "^5.21.6",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "js-cookie": "^3.0.5",
@@ -27,9 +27,13 @@
     "react-dom": "^18.3.1",
     "react-multilevel-dropdown": "^4.0.0",
     "react-router-dom": "^6.26.2",
+<<<<<<< HEAD
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.1",
     "react-slick": "^0.30.2",
+=======
+    "react-select": "^5.8.2",
+>>>>>>> 81db08d345e46f42a38518b9c8a26229398d22b6
     "sass": "^1.79.3",
     "slick-carousel": "^1.8.1",
     "uuid": "^10.0.0"
@@ -45,6 +49,7 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "react-slick": "^0.30.2",
     "typescript": "^4.9.5",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
