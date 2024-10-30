@@ -72,12 +72,12 @@ export type Resgister ={
   gender?:string
 }
 
-export type FilerObject ={
-  minPrice?: string,
-  maxPrice?: string,
-  color?: string,
-  size?: string,
-  subCategory?: string,
+export type FilterObject ={
+  minPrice?: number[],
+  maxPrice?: number[],
+  color?: string[],
+  size?: string[],
+  subCategory?: number[],
 }
 
 export type MyInFo = {

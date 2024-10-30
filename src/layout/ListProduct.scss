@@ -1,0 +1,28 @@
+.carousel{
+    height: 5%;
+
+    .carousel-indicators{
+        display: none;
+
+    }
+    .carousel-control-prev{
+        display: none;
+    }
+    .carousel-control-next{
+        display: none;
+    }
+    .carousel-inner{
+        
+        .carousel-item{
+            margin: 0;
+            padding: 0;
+            #img-banner{
+                height: 300px;
+            }
+        }
+    }
+}
+
+.carousel-item{
+    height: 110%;
+}

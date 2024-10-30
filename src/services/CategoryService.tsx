@@ -1,7 +1,14 @@
 import axios from "./CustomizeAxios";
 
-export const fetchAllCategory = () => {
-  return axios.get("/categories");
+export const fetchAllCategory = async() => {
+  try{
+    const res = await axios.get("/categories");
+    return res.data;
+  }
+  catch(error){
+    return error;
+  }
+  
 }
 
 export const fetchCategoryById = (categoryId: string) => {

@@ -1,5 +1,5 @@
 import axios from "./CustomizeAxios";
-import {FilerObject} from '../initialize/type';
+import {FilterObject} from '../initialize/type';
 export const fetchAllProduct = async() => {
   try{
     const res = await axios.get("/products");
@@ -10,9 +10,37 @@ export const fetchAllProduct = async() => {
   }
 }
 
-export const fetchAllProductFilter = (filterObject: FilerObject) => {
-    return axios.get(`/products/filter${filterObject}`);
-}
+
+
+export const fetchProductFilter = async (filterObject: FilterObject) => {
+  try {
+    const res = await axios.post(`http://localhost:8081/products/filter`, filterObject, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Lỗi khi filter sản phẩm:", error);
+    throw error; // Ném lỗi để xử lý ở nơi gọi
+  }
+};
+
+
+export const fetchProductsByCategoryId = async (categoryid: string ) => {
+  try {
+    const res = await axios.get(`/products/category`, {
+      params: {
+        categoryid: categoryid, // Pass the keyword as a query parameter
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error(`Không tìm thấy ${categoryid}:`, error);
+    throw error;
+  }
+};
 
 export const searchProduct = async (keyword: string | null) => {
   try {

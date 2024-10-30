@@ -8,9 +8,11 @@ import { ProductDetail } from './layout/ProductDetail';
 import MyInfo from './layout/MyInfo';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AccountPage from './pages/AccountPage';
-import { FillerProduct } from './components/FillerProduct';
+import { FillerProduct } from './components/FilterProduct';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import { LoginPage } from './pages/LoginPage';
+import ListProduct from './layout/ListProduct';
+import CategoryProductPage from './pages/CategoryProductPage';
 
 
 const HanderRoutes = () => (
@@ -22,6 +24,7 @@ const HanderRoutes = () => (
     <Route path="/product-detail/:productId" element={<ProductDetailPage />} />
     <Route path="/my-info" element={<AccountPage />} />
     <Route path="/test" element={<ShoppingCartPage />} />
+    <Route path="/collections/:categoryName/:categoryId" element={<CategoryProductPage />} />
 
 
   </Routes>
