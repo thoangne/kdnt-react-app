@@ -1,7 +1,12 @@
 import axios from "./CustomizeAxios";
 import { getToken } from "./TokenService";
-import { Specifications, User } from "../initialize/type";
+import { ShoppingCart, Specifications, User } from "../initialize/type";
 import  { openFailNotification, openSuccessNotification } from "../components/Notification";
+import { useEffect, useState } from "react";
+import ShoppingCartCard from "../components/Card/ProductCartCard";
+import { useUserContext } from "../context/UserContext";
+import { downloadFileS3 } from "./StorageService";
+import { useNavigate } from "react-router-dom";
 
 
 export const fetchShoppingCartByUser = async (UserId: string) => {
@@ -110,3 +115,76 @@ export const deleteShoppingCartByUser = async (shoppingCartId: string) => {
   }
 };
 
+
+
+export const LoadAllShoppingCart = () => {
+  const [shoppingCartItem, setShoppingCartItem] = useState<ShoppingCart[]>([]);
+  const { myInfo } = useUserContext();
+  const [imageUrls, setImageUrls] = useState<{ [key: string]: string }>({});
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchImages = async () => {
+      const urls: { [key: string]: string } = {};
+
+      for (const item of shoppingCartItem) {
+        const imageName = item?.specifications?.image?.[0]?.imageName;
+        if (imageName) {
+          try {
+            const url = await downloadFileS3(imageName);
+            urls[item.productCartId] = url;
+          } catch (error) {
+            console.error("Error downloading image:", error);
+          }
+        }
+      }
+
+      setImageUrls(urls);
+    };
+
+    if (shoppingCartItem.length > 0) {
+      fetchImages();
+    }
+  }, [shoppingCartItem]);
+
+  useEffect(() => {
+    const getItem = async () => {
+      try {
+        if (myInfo) {
+          const res = await fetchShoppingCartByUser(myInfo.userId);
+          if (res) {
+            setShoppingCartItem(res.data.productCartItem); 
+          }
+        }
+      } catch (err) {
+        setError("Không thể tải giỏ hàng. Vui lòng thử lại sau."); // Xử lý lỗi
+        console.error(err);
+      }
+    };
+    getItem(); // Gọi hàm async
+  }, [myInfo]); // Phụ thuộc vào myInfo thay vì Sho
+  return (
+    <div>
+      <div className="text-vol-cart">
+        {shoppingCartItem.length > 0
+          ? `Có ${shoppingCartItem.length} sản phẩm trong giỏ hàng`
+          : "Giỏ hàng của bạn trống"}
+      </div>
+        {error && <div className="alert alert-danger">{error}</div>} {/* Hiển thị lỗi */}
+        {shoppingCartItem && shoppingCartItem.map((item, index) =>{
+          return (
+            <ShoppingCartCard
+              shoppingCartId = {item.productCartId}
+              name={item.productName} // Hiển thị dữ liệu thực
+              prePrice={item.specifications?.price} // Thay thế giá trị thực từ API
+              undPrice={20000} // Thay thế giá trị thực từ API
+              typeItem={`${item.specifications?.color + " / " + item.specifications?.height + " / " + item.specifications?.width + " / " + item.specifications?.length}` } // Hiển thị dữ liệu thực
+              imageURL={imageUrls[item.productCartId] || "link-to-default-image.jpg"}
+              initialQuantity={item.quantity} // URL ảnh sản phẩm
+            />
+          )
+        })}
+    </div>
+  );
+}

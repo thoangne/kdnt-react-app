@@ -1,10 +1,19 @@
-import  {Product,Category, Login, User, Resgister, FilerObject}  from "./type";
+import  {Product,Category, Login, User, Resgister, FilerObject, Order}  from "./type";
 
 export const CategoryDefault:Category = {
     categoryId: "hello",
     categoryName: "hello",
     description: "hello"
   };
+  
+export  const orderDefautl: Order = {
+    user: {} as User, // giả sử user là một đối tượng trống hoặc bạn có thể định nghĩa nó tùy theo nhu cầu
+    province: "",
+    district: "",
+    ward: "",
+    street: ""
+  };
+
   
 export const ProductDefault: Product = {
   productId: "xxxxxxxxx",

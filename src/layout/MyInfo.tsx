@@ -86,7 +86,7 @@ const MyInfo: React.FC = () => {
                   caption="Email"
                   type="email"
                   placeholder="Nhập email của bạn"
-                  value={UserInfo.email}
+                  value={UserInfo.userId}
                   onChange={(e) =>
                     setUserInfo({ ...UserInfo, email: e.target.value })
                   }

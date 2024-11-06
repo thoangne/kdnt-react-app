@@ -27,13 +27,9 @@
     "react-dom": "^18.3.1",
     "react-multilevel-dropdown": "^4.0.0",
     "react-router-dom": "^6.26.2",
-<<<<<<< HEAD
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.1",
     "react-slick": "^0.30.2",
-=======
-    "react-select": "^5.8.2",
->>>>>>> 81db08d345e46f42a38518b9c8a26229398d22b6
     "sass": "^1.79.3",
     "slick-carousel": "^1.8.1",
     "uuid": "^10.0.0"

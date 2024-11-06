@@ -149,7 +149,7 @@ function Header() {
               id="header-bottom__container-cart"
               className="d-flex align-items-center me-3 mr-10"
             >
-              <Link to="test"><ShoppingCartOutlined className="icon-user" /></Link>
+              <Link to="/test"><ShoppingCartOutlined className="icon-user" /></Link>
               
             </div>
 

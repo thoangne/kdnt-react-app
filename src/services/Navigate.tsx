@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 
-export const Navigate = (destination: string) => {
+export const useCustomNavigate = () => {
     const navigate = useNavigate();
-    navigate(destination);
-}
+
+    const navigateTo = (destination: string) => {
+        navigate(destination);
+    };
+
+    return { navigateTo };
+};

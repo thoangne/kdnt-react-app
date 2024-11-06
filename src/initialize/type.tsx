@@ -38,6 +38,20 @@ export type Product = {
   specifications: Specifications
 };
 
+export type Order = {
+  user: User,
+  province: string,
+  district: string,
+  ward: string,
+  street: string
+};
+
+export type OrderItem = {
+  quantity: number,
+  specifications: Specifications,
+  order: Order
+}
+
 export type User = {
   userId: string,
   firstName: string,

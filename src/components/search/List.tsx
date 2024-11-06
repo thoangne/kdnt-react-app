@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { searchProduct } from "../../services/ProductService";
 import { Product } from "../../initialize/type";
 import "./List.scss";
+import { Link } from "react-router-dom";
 
 interface ListProps {
   input: string;
@@ -46,13 +47,15 @@ function List({ input, onSelect }: ListProps) {
   return (
     <ul className="dropdown-list">
       {filteredData.map((item) => (
-        <li
-          key={item.productId}
-          onClick={() => onSelect(item.productId!, item.name!)}
-          className="dropdown-item"
-        >
+        <Link to={`/product-detail/${item.productId}`}>
+           <li
+              key={item.productId}
+              onClick={() => onSelect(item.productId!, item.name!)}
+              className="dropdown-item"
+            >
           {item.name}
         </li>
+        </Link>
       ))}
      {quantity && quantity > 4 ? (
           <p>
