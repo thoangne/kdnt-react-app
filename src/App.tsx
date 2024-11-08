@@ -5,13 +5,11 @@ import { RegisterPage } from './pages/RegisterPage';
 import './App.sass'
 import ProductDetailPage from './pages/ProductDetailPage';
 import AccountPage from './pages/AccountPage';
-import ShoppingCartPage from './pages/ShoppingCartPage';
 import { LoginPage } from './pages/LoginPage';
-import ListProduct from './layout/ListProduct';
 import CategoryProductPage from './pages/CategoryProductPage';
-
-import { PayOut } from './layout/PayOut';
 import PayOutPage from './pages/PayOutPage';
+import AdminPage from './admin/AdminPage';
+
 
 
 const HanderRoutes = () => (
@@ -24,9 +22,9 @@ const HanderRoutes = () => (
     <Route path="/my-info" element={<AccountPage />} />
     <Route path="/collections/:categoryName/:categoryId" element={<CategoryProductPage />} />
     <Route path="payout" element={<PayOutPage />} />
-    <Route path="test" element={<ShoppingCartPage />} />
+    <Route path="test" element={<AdminPage />} />
     <Route path="/collections/:categoryName/:categoryId" element={<CategoryProductPage />} />
-
+    <Route path="/admin/*" element={<AdminPage />} />
   </Routes>
 );
 
