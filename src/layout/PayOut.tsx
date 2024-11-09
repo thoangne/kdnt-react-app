@@ -5,340 +5,205 @@ import "./PayOut.scss";
 import { useUserContext } from "../context/UserContext";
 import { fetchAllProvince, fetchDistrictsByProvinceId, fetchWardByDestrictId } from "../services/ProvinceService";
 import { fetchShoppingCartByUser, LoadAllShoppingCart } from "../services/ShoppingCartService";
-import { Order, ShoppingCart, User } from "../initialize/type";
+import { Order, OrderItem, ShoppingCart, User } from "../initialize/type";
 import { orderDefautl } from "../initialize/defaultType";
-
-// interface Province {
-//   province_id: string;
-//   province_name: string;
-//   province_type:
-// }
-
+import { createOrderAPI, createOrderItemAPI } from "../services/OrderService";
+import { openFailNotification, openSuccessNotification } from "../components/Notification";
 
 export const PayOut = () => {
-  // const {myInfo} = useUserContext();
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState<Order>(orderDefautl);
+  const [productCart, setProductCart] = useState<ShoppingCart[]>([]);
   const [provinces, setProvinces] = useState<any[]>([]);
   const [destricts, setDestricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
-  const [selectProvince, setSelectProvince] = useState();
-  const [selectDestrict, setSelectDestrict] = useState();
-  const [totalPrice, setTotalPrice] = useState();
-
+  const [selectProvince, setSelectProvince] = useState<string | undefined>();
+  const [selectDestrict, setSelectDestrict] = useState<string | undefined>();
+  const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
   const [shoppingCartItem, setShoppingCartItem] = useState<ShoppingCart[]>([]);
+  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const { myInfo } = useUserContext();
-  console.log(JSON.stringify(myInfo));
-  // setOrder((prevState) => ({
-  //   ...prevState,
-  //   user: myInfo as User // Ép kiểu hoặc giữ nguyên user
-
-  // }));
-  
-  
-  useEffect(() => {
-    const getItem = async () => {
-      try {
-        if (myInfo) {
-          const res = await fetchShoppingCartByUser(myInfo.userId);
-          if (res) {
-            setTotalPrice(res.data.totalPrice);
-            setShoppingCartItem(res.data.productCartItem); 
-          }
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getItem(); // Gọi hàm async
-  }, [myInfo]); // Phụ thuộc vào myInfo thay vì ShoppingCartItem
+  const userInfo = myInfo as User;
 
   useEffect(() => {
-    getAllProvince();
-  }, [])
+    if (myInfo) {
+      fetchShoppingCartByUser(myInfo.userId).then((res) => {
+        setProductCart(res.data.productCartItem);
+        setTotalPrice(res.data.totalPrice);
+        setShoppingCartItem(res.data.productCartItem);
+        setOrder((prevState) => ({ ...prevState, user: userInfo }));
+      });
+    }
+  }, [myInfo, userInfo]);
+
+  useEffect(() => {
+    fetchAllProvince().then((res) => setProvinces(res.results));
+  }, []);
 
   useEffect(() => {
     if (selectProvince) {
-      getAllDestrictByProvinceId(selectProvince);
+      fetchDistrictsByProvinceId(selectProvince).then((res) => setDestricts(res.results));
     }
   }, [selectProvince]);
 
   useEffect(() => {
     if (selectDestrict) {
-      getAllWardByDestrictId(selectDestrict);
+      fetchWardByDestrictId(selectDestrict).then((res) => setWards(res.results));
     }
   }, [selectDestrict]);
 
-
-  const addOrderHander = () => {
-    
-  }
-  const getAllProvince = async() => {
-    const res = await fetchAllProvince();
-    setProvinces(res.results);
-  }
-
-  const getAllDestrictByProvinceId = async(provinceId: string) => {
-    const res = await fetchDistrictsByProvinceId(provinceId);
-    setDestricts(res.results);
-  }
-
-  const getAllWardByDestrictId = async(destrictId: string) => {
-    const res = await fetchWardByDestrictId(destrictId);
-    setWards(res.results);
-  }
-
-  const handleSelectProvinceChange = (e: any) => {
-    setSelectProvince(e.target.value);
-    const selectedName = e.target.options[e.target.selectedIndex].dataset.code; // Lấy tên tỉnh từ data-code
-    
-    setOrder(prevState => ({
-      ...prevState,
-      province: selectedName || undefined, // Cập nhật province_name
-    }));
-  }
-
-  const handleSelectDestrictChange = (e: any) => {
-    setSelectDestrict(e.target.value);
-    const selectedName = e.target.options[e.target.selectedIndex].dataset.code;
-    setOrder(prevState => ({
-      ...prevState,
-      district: selectedName || undefined, // Cập nhật province_name
-    }));
-  }
-
-  const handleSelectWardChange = (e: any) => {
-    setSelectDestrict(e.target.value);
-    const selectedName = e.target.options[e.target.selectedIndex].dataset.code;
-    setOrder(prevState => ({
-      ...prevState,
-      ward: selectedName || undefined, // Cập nhật province_name
-    }));
-  }
-
-  const handleSelectAddressChange = (e: any) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>, type: string) => {
     const value = e.target.value;
-    setOrder(prevState => ({
+    const selectedName = e.target.options[e.target.selectedIndex].dataset.code;
+    
+    setOrder((prevState) => ({
       ...prevState,
-      street: value || undefined, // Cập nhật province_name
+      [type]: selectedName || value,
     }));
-  }
 
-  console.log(" yyyyyyy " + JSON.stringify(order));
-  // console.log("xxxxxxxxx " + JSON.stringify(provinces));
+    if (type === "province") setSelectProvince(value);
+    if (type === "district") setSelectDestrict(value);
+  };
 
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOrder((prevState) => ({ ...prevState, street: e.target.value }));
+  };
+
+  
+  const addOrderItem = async (orderItem: OrderItem) => {
+    try {
+      return await createOrderItemAPI(orderItem);
+    } catch (error) {
+      console.error("Lỗi khi thêm OrderItem: ", error);
+      throw error; // Ném lỗi để xử lý tiếp
+    }
+  };
+  
+  const OrderHandler = async () => {
+    try {
+      // Tạo đơn hàng trước
+      const res = await createOrderAPI(order);
+  
+      if (res) {
+        const createdOrder = res.data; // Đối tượng Order vừa tạo
+        console.log("Order Created Successfully: ", createdOrder);
+  
+        // Thêm tất cả các OrderItem
+        const itemsPromises = productCart.map((item: ShoppingCart) => 
+          addOrderItem({
+            quantity: item.quantity,
+            specifications: item.specifications,
+            order: createdOrder // Gán order hoặc orderId từ response
+          })
+        );
+  
+        // Chờ xử lý tất cả các OrderItems
+        const createdItems = await Promise.all(itemsPromises);
+  
+        // Lưu trữ các mục đã thêm thành công
+        setOrderItems((prevItems) => [...prevItems, ...createdItems]);
+  
+        openSuccessNotification("Mua hàng thành công", "");
+      } else {
+        openFailNotification("Mua hàng thất bại!", "Không thể tạo đơn hàng");
+      }
+    } catch (error) {
+      console.error("Lỗi khi xử lý đơn hàng: ", error);
+      openFailNotification("Mua hàng thất bại!", "Lỗi khi gọi API mua hàng");
+    }
+  };
+  
+  
+  
+    
 
   return (
-    <>
-      <Container>
-        <Row>
-          <Col xs={7}>
-            <h1>Nội thất MOHO</h1>
-            <div>
-              <span>Giỏ hàng</span>
-              <span></span>
-              <span>Thông tin giao hàng</span>
-            </div>
-            <div>
-              <h3>Thông tin giao hàng</h3>
-              <div className="user-custom">
-                <img src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" />
-                <div className="user-custom-sub">
-                  <span>Tên người dùng</span>
-                  <a href="">Đăng xuất</a>
-                </div>
-              </div>
-
-              <div>
-                <FormInput
-                  controlid={""}
-                  caption={""}
-                  type={""}
-                  placeholder={"Họ"}
-                  value={myInfo?.firstName}
-                  onChange={function (
-                    e: React.ChangeEvent<HTMLInputElement>
-                  ): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                ></FormInput>
-
-                <FormInput
-                  controlid={""}
-                  caption={""}
-                  type={""}
-                  placeholder={"Tên"}
-                  value={myInfo?.lastName}
-                  onChange={function (
-                    e: React.ChangeEvent<HTMLInputElement>
-                  ): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                ></FormInput>
-                <FormInput
-                  controlid={""}
-                  caption={""}
-                  type={""}
-                  placeholder={"Số điện thoại"}
-                  value={""}
-                  onChange={function (
-                    e: React.ChangeEvent<HTMLInputElement>
-                  ): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                ></FormInput>
-                <FormInput
-                  controlid={""}
-                  caption={""}
-                  type={""}
-                  placeholder={"Địa chỉ"}
-                  value={order.street}
-                  onChange={handleSelectAddressChange}
-                ></FormInput>
-
-                <Form className="d-flex">
-                  {/* Province/City Selection */}
-                  <Form.Group controlId="customer_shipping_province">
-                    <Form.Label>Tỉnh/ Thành</Form.Label>
-                    <Form.Control onChange={handleSelectProvinceChange}
-                      as="select"
-                      name="customer_shipping_province"
-                      defaultValue="null"
-                    >
-                      <option data-code="null" value="null">
-                        Chọn tỉnh/ thành
-                      </option>
-                      
-                      {provinces && provinces.map((province) => (
-                        <option 
-                          key={province.province_id} 
-                          data-code={province.province_name}
-                          value={province.province_id}
-                        >
-                          
-                          {province.province_name}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-
-                  {/* District Selection */}
-                  <Form.Group controlId="customer_shipping_district">
-                    <Form.Label>Quận/ Huyện</Form.Label>
-                    <Form.Control onChange={handleSelectDestrictChange}
-                      as="select"
-                      name="customer_shipping_district"
-                      defaultValue="null"
-                    >
-                      <option data-code="null" value="null">
-                        Chọn quận/ huyện
-                      </option>
-                      {destricts && destricts.map((destrict) => (
-                         <option 
-                         key={destrict.destrict_id} 
-                         data-code={destrict.district_name}
-                         value={destrict.district_id}
-                       >
-                         {destrict.district_name}
-                       </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-
-                  {/* Ward Selection */}
-                  <Form.Group controlId="customer_shipping_ward">
-                    <Form.Label>Phường/ Xã</Form.Label>
-                    <Form.Control onChange={handleSelectWardChange}
-                      as="select"
-                      name="customer_shipping_ward"
-                      defaultValue="null"
-                    >
-                      <option data-code="null" value="null">
-                        Chọn phường/ xã
-                      </option>
-                      {wards && wards.map((ward) => (
-                         <option 
-                         key={ward.ward_id} 
-                         data-code={ward.ward_name}
-                         value={ward.ward_id}
-                       >
-                         {ward.ward_name}
-                       </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-                </Form>
+    <Container>
+      <Row>
+        <Col xs={7}>
+          <h1>Nội thất MOHO</h1>
+          <div>
+            <span>Giỏ hàng</span>
+            <span></span>
+            <span>Thông tin giao hàng</span>
+          </div>
+          <div>
+            <h3>Thông tin giao hàng</h3>
+            <div className="user-custom">
+              <img src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" />
+              <div className="user-custom-sub">
+                <span>{myInfo?.firstName} {myInfo?.lastName}</span>
+                <a href="">Đăng xuất</a>
               </div>
             </div>
-            <h3>Phương thức vận chuyển</h3>
-            <Form.Group className="custom-box-gr" controlId="formBasicCheckbox">
-              <Form.Check
-                className="custom-box-input"
-                type="radio"
-                label="
-Miễn phí giao hàng & lắp đặt tại tất cả quận huyện thuộc TP.HCM đối với các sản phẩm nội thất. Các sản phẩm thuộc danh mục Đồ Trang Trí, phí giao hàng sẽ được MOHO liên hệ báo sau."
-              />
-            </Form.Group>
 
-            <h3>Phương thức thanh toán</h3>
-            <Form className="custom-box-gr">
-              {/* Radio Button Section */}
-              <Form.Group controlId="formBasicRadio">
-                <Form.Check
-                  className=""
-                  type="radio"
-                  label="Thanh toán bằng tiền mặt"
-                  name="gender"
-                  id="genderMale"
-                />
-                <Form.Check
-                  type="radio"
-                  label="Thanh toán bằng chuyển khoản"
-                  name="gender"
-                  id="genderFemale"
-                />
-                <Form.Check
-                  type="radio"
-                  label="Thanh toán online qua cổng VNPay (ATM/Visa/MasterCard/JCB/QR Pay trên Internet Banking) "
-                  name="gender"
-                  id="genderOther"
-                />
-                <Form.Check
-                  type="radio"
-                  label="Ví MoMo "
-                  name="gender"
-                  id="genderOther"
-                />
+            <FormInput controlid="" caption="" type="" placeholder="Họ" value={myInfo?.firstName} />
+            <FormInput controlid="" caption="" type="" placeholder="Tên" value={myInfo?.lastName} />
+            <FormInput controlid="" caption="" type="" placeholder="Số điện thoại" value="" />
+            <FormInput controlid="" caption="" type="" placeholder="Địa chỉ" value={order.street} onChange={handleAddressChange} />
+
+            <Form className="d-flex">
+              <Form.Group controlId="customer_shipping_province">
+                <Form.Label>Tỉnh/ Thành</Form.Label>
+                <Form.Control as="select" onChange={(e) => handleSelectChange(e, "province")}>
+                  <option value="null">Chọn tỉnh/ thành</option>
+                  {provinces.map((province) => (
+                    <option key={province.province_id} value={province.province_id} data-code={province.province_name}>
+                      {province.province_name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+
+              <Form.Group controlId="customer_shipping_district">
+                <Form.Label>Quận/ Huyện</Form.Label>
+                <Form.Control as="select" onChange={(e) => handleSelectChange(e, "district")}>
+                  <option value="null">Chọn quận/ huyện</option>
+                  {destricts.map((destrict) => (
+                    <option key={destrict.destrict_id} value={destrict.district_id} data-code={destrict.district_name}>
+                      {destrict.district_name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+
+              <Form.Group controlId="customer_shipping_ward">
+                <Form.Label>Phường/ Xã</Form.Label>
+                <Form.Control as="select" onChange={(e) => handleSelectChange(e, "ward")}>
+                  <option value="null">Chọn phường/ xã</option>
+                  {wards.map((ward) => (
+                    <option key={ward.ward_id} value={ward.ward_id} data-code={ward.ward_name}>
+                      {ward.ward_name}
+                    </option>
+                  ))}
+                </Form.Control>
               </Form.Group>
             </Form>
-            <div className="custom-subb">
-              <a href="">Đơn hàng</a>
-              <Button type="submit">Hoàn tất đơn hàng</Button>
-            </div>
-          </Col>
-          <Col xs={5}>
-          <LoadAllShoppingCart></LoadAllShoppingCart>
-            {/* <Card className="mb-3">
-              <Row className="align-items-center p-3">
-                <Col className="img-custom-payout" xs={3}>
-                <img src="https://product.hstatic.net/200000065946/product/pro_nau_noi_that_moho_giuong_ngu_go_tram_vline_1m8_a_6ba57dbc2c7943509208badc020decf8_small.jpg" alt="" />
-                </Col>
-                <Col xs={6}>
-                  <Card.Text>
-                    <strong>
-                      Giường Ngủ Gỗ Tràm MOHO VLINE 601 Nhiều Kích Thước
-                    </strong>
-                    <br />
-                    Nâu / 1m4 / Tấm Phần
-                  </Card.Text>
-                </Col>
-                <Col xs={3} className="text-end">
-                  <strong>5,990,000₫</strong>
-                </Col>
-              </Row>
-            </Card> */}
+          </div>
+          <h3>Phương thức vận chuyển</h3>
+          <Form.Group className="custom-box-gr">
+            <Form.Check
+              className="custom-box-input"
+              type="radio"
+              label="Miễn phí giao hàng & lắp đặt tại tất cả quận huyện thuộc TP.HCM đối với các sản phẩm nội thất."
+            />
+          </Form.Group>
 
-            {/* Discount Code Section */}
+          <h3>Phương thức thanh toán</h3>
+          <Form className="custom-box-gr">
+            <Form.Check type="radio" label="Thanh toán bằng tiền mặt" name="paymentMethod" />
+            <Form.Check type="radio" label="Thanh toán bằng chuyển khoản" name="paymentMethod" />
+            <Form.Check type="radio" label="Thanh toán online qua cổng VNPay" name="paymentMethod" />
+            <Form.Check type="radio" label="Ví MoMo" name="paymentMethod" />
+          </Form>
+
+          <div className="custom-subb">
+            <Button onClick={OrderHandler}>Hoàn tất đơn hàng</Button>
+          </div>
+        </Col>
+        <Col xs={5}>
+          <LoadAllShoppingCart></LoadAllShoppingCart>
+
             <Row className="align-items-center mb-3">
               <Col xs={8}>
                 <Form.Control type="text" placeholder="Mã giảm giá" />
@@ -386,8 +251,7 @@ Miễn phí giao hàng & lắp đặt tại tất cả quận huyện thuộc TP
               </Col>
             </Row>
           </Col>
-        </Row>
-      </Container>
-    </>
+      </Row>
+    </Container>
   );
 };
