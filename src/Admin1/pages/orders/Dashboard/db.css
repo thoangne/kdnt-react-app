@@ -1,0 +1,40 @@
+.flex-gap-4 {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+.combined-class {
+  background-color: white;
+  border-radius: 0.125rem;
+  padding: 1rem;
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+}
+.custom-circle {
+  border-radius: 9999px;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b82f6;
+}
+.font {
+  font-size: 1.5rem;
+  color: #fff;
+}
+.pl-4 {
+  padding-left: 1rem;
+}
+.custom-text-strong {
+  font-size: 1.25rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+.custom-subtext {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 300;
+}

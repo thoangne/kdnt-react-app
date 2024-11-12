@@ -1,0 +1,104 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+  
+  .header-container h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .right-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .right-actions span {
+    cursor: pointer;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    background-color: #25764a;
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+  
+  .right-actions span:hover {
+    background-color: #0d4b1f;
+  }
+  
+  .underline {
+    text-decoration: underline;
+  }
+  
+  .custom-input {
+    font-size: 0.875rem;
+    outline: none;
+    height: 2.5rem;
+    width: 15rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+  }
+  
+  .date-filter{
+    font-size: 0.875rem;
+    outline: none;
+    height: 2.7rem;
+    width: 8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+  }
+
+.dropdown-filter{
+    font-size: 0.875rem;
+    outline: none;
+    height: 2.7rem;
+    width: 14rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+}
+  .relative {
+    position: relative;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    padding-top: 2rem;
+  }
+  .icon {
+    color: #9ca3af;
+    position: absolute;
+    top: 70%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+  }
+  
+  .span {
+    background-color: white;
+    font-size: 0.875rem;
+    outline: none;
+    height: 1rem;
+    width: 8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .flex-row-fullwidth {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  

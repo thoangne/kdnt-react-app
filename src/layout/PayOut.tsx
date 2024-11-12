@@ -104,6 +104,9 @@ export const PayOut = () => {
         setOrderItems((prevItems) => [...prevItems, ...createdItems]);
   
         openSuccessNotification("Mua hàng thành công", "");
+
+        // window.location.reload();
+
       } else {
         openFailNotification("Mua hàng thất bại!", "Không thể tạo đơn hàng");
       }

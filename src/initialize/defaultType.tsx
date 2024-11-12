@@ -1,4 +1,4 @@
-import  {Product,Category, Login, User, Resgister, FilerObject, Order}  from "./type";
+import  {Product,Category, Login, User, Resgister, FilerObject, Order, Specifications}  from "./type";
 
 export const CategoryDefault:Category = {
     categoryId: "hello",
@@ -16,17 +16,11 @@ export  const orderDefautl: Order = {
 
   
 export const ProductDefault: Product = {
-  productId: "xxxxxxxxx",
-  name: "hello",
-  price: 0,
-  length:"hello",
-  width:"hello",
-  height:"hello",
-  description:"hello",
-  stockQuantity: 0,
-  createAt: "2024-1-1",
+  name: "",
+  description:"",
+  createAt: undefined,
   status: false,
-  category: CategoryDefault
+  specifications: null
 };
 export const LoginDefalt: Login = {
   username: "",
@@ -66,3 +60,14 @@ export const FilerObjectDefault:FilerObject ={
   subCategory: "",
 }
 
+
+export const specificationsDefault: Specifications = {
+  price: 0,
+  quantity: 0,
+  color: '',
+  height: '',
+  width: '',
+  length: '',
+  size: '',
+  image: null, // Nếu `image` là chuỗi
+};
