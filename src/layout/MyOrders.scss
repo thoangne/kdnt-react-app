@@ -1,0 +1,14 @@
+.see-more{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    .cancle-btn{
+        border: none;
+        background-color: transparent;
+        text-decoration:underline;
+        color: #EF683A;
+        &:hover{
+            color: black;
+        }
+    }
+}

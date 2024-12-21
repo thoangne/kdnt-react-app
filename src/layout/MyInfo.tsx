@@ -6,6 +6,7 @@ import { User } from "../initialize/type";
 import { UserDefault } from "../initialize/defaultType";
 import { useUserContext } from "../context/UserContext";
 import { UpdateUserInfoAPI } from "../services/UserService";
+import Sidebar from "./SideBar";
 
 const MyInfo: React.FC = () => {
   const { myInfo } = useUserContext();
@@ -45,40 +46,20 @@ const MyInfo: React.FC = () => {
   };
 
   return (
-    <Container>
+    <div className="account-form-container">
       <Row className="cust-row">
         <Col>
           <span className="cap-info">Tài khoản của bạn</span>
         </Col>
       </Row>
       <Row>
-        <Col xs={4}>
-          <h2 className="account-cust">Tài khoản</h2>
-          <Row>
-            <Col>
-              <ul className="list-unstyle">
-                <li className="cust-row w-50p">
-                  <a className="list-cur" href="#">
-                    Thông tin tài khoản
-                  </a>
-                </li>
-                <li className="cust-row w-50p">
-                  <a className="list-cur" href="#">
-                    Danh sách địa chỉ
-                  </a>
-                </li>
-                <li className="cust-row w-50p">
-                  <a className="list-cur" href="#">
-                    Đăng xuất
-                  </a>
-                </li>
-              </ul>
-            </Col>
-          </Row>
+        <Col xs={3}>
+           <Sidebar></Sidebar>
         </Col>
-        <Col xs={8}>
+        <Col xs={9}>
           <h2>Thông tin tài khoản</h2>
           <Row>
+            {/* <h5><span>ID: {UserInfo.userId}</span></h5> */}
             <Col>
               <Form onSubmit={handleSubmit}>
                 <FormInput
@@ -86,7 +67,7 @@ const MyInfo: React.FC = () => {
                   caption="Email"
                   type="email"
                   placeholder="Nhập email của bạn"
-                  value={UserInfo.userId}
+                  value={UserInfo.email}
                   onChange={(e) =>
                     setUserInfo({ ...UserInfo, email: e.target.value })
                   }
@@ -175,7 +156,7 @@ const MyInfo: React.FC = () => {
           </Row>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

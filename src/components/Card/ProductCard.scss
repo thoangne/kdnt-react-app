@@ -1,9 +1,56 @@
-#font-card{
-  font-size: 16px;
+.card{
+  border-radius: 0;
+  position: relative;
+  .card-p-body{
+    padding: 5px;
+    padding-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    
+    #font-card{
+      font-size: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      
+    }
+
+    .card-text{
+      margin: 0;
+      .het-hang{
+        color: white;
+        font-size: 12px;
+
+        background-color: #F41919;
+        border-radius: 8px;
+        padding: 2px 4px;
+      }
+      .sap-het{
+        color: black;
+        font-size: 12px;
+
+      }
+      .discount-percent{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+
+        background-color: #F41919;
+        color: white;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 1px 10px;
+        border-radius: 3px;
+      }
+
+      .price{
+        font-size: 15px;
+        font-weight: 700;
+      }
+    }
+  }
 }
-.price{
-  font-size: 12px;
-}
+
+
+
 
 .color-price{
   color: #ef683a;

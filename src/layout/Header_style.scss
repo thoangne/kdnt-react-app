@@ -1,8 +1,10 @@
 #header{
-    padding-top: 0;
-    justify-content: space-between;
-    min-height: 100px;
+   justify-content: space-between;
+      padding-top: 0;
+   min-height: 100px;
+
 }
+
 #header-top{
     background-color: #27678f;
     width: 100;
@@ -10,6 +12,7 @@
     text-align: center;
 }
 #header-top__text{
+    
     color: #fff;
 }
 .form-control{
@@ -59,9 +62,11 @@
 }
 #header-list__nav{
     list-style: none;
+    text-align: center;
 }
 .header-list__list-item{
     margin-right: 10px;
+    font-size: 16px;
 }
 #header-list__nav{
     margin-bottom: 0;   
@@ -70,6 +75,7 @@
     background-color: #f8f9fa;
     border: #f8f9fa;
 }
+
 .text-under{
     text-decoration: none;
     list-style: none;
@@ -127,4 +133,24 @@
   }
 .row-m{
     margin-bottom: 10px;
+}
+
+.container{
+    .t-under-name{
+        padding: 5px 0;
+        border-bottom: 1px solid #27678F;
+    }
+
+    .logout-button{
+
+        margin-top: 15px;
+        background-color: #EF683A;
+        border: none;
+        color: white;
+        padding: 5px 15px;
+        &:hover{
+            transition: 0.2s;
+            background-color: #27678F;
+        }
+    }
 }

@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
-import './App.sass'
+// import './App.sass'
 import ProductDetailPage from './pages/ProductDetailPage';
 import AccountPage from './pages/AccountPage';
 import { LoginPage } from './pages/LoginPage';
@@ -19,6 +19,10 @@ import OrderDeliveringPage from './Admin1/pages/orders/OrderDeliveringPage';
 import AnalyticsPage from './Admin1/pages/dashboard/AnalyticsPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import ProductPage from './Admin1/pages/products/ProductPage';
+import OrderTracking from './Admin1/pages/orders/OrderTracking';
+import MyOrdersPage from './pages/MyOrdersPage';
+import OnPromotion from './Admin1/pages/promotion/onPromotion';
+import PromotionDetail from './Admin1/pages/promotion/PromotionDetail';
 
 
 const HanderRoutes = () => (
@@ -33,18 +37,23 @@ const HanderRoutes = () => (
     <Route path="/collections/:categoryName/:categoryId" element={<CategoryProductPage />} />
     <Route path="payout" element={<PayOutPage />} />
     <Route path="/collections/:categoryName/:categoryId" element={<CategoryProductPage />} />
-    <Route path="/admin/*" element={<AdminPage />} />
-    {/* <Route path="/admin1" element={<Main />} /> */}
-    <Route path="/testadmin" element={<MainLayout />}>
+    <Route path="/my-orders" element={<MyOrdersPage />} />
+    
+    
+    <Route path="/admin" element={<MainLayout />}>
           {routes}
         {/* Child router admin */}
         <Route path="overview" element={<DefaultPage />} />
         <Route path="analytics" element={<AnalyticsPage />} />
         <Route path="category" element={<CategoryPage />} />
         <Route path="product-page" element={<ProductPage />} />
-        <Route path="delivered" element={<OrderDeliveredPage />} />
-        <Route path="processing" element={<OrderProcessingPage />} />
-        <Route path="delivering" element={<OrderDeliveringPage />} />
+        <Route path="processing" element={<OrderTracking />} />
+
+        <Route path="on-promotion" element={<OnPromotion />} />
+        <Route path="promotied" element={<OrderTracking />} />
+        <Route path="create-promotion" element={<OrderTracking />} />
+
+        <Route path="promotion-detail/:promotionId" element={<PromotionDetail />} />
         
 
     </Route>

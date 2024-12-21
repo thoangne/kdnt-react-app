@@ -169,7 +169,7 @@ export const FilterProduct: React.FC<FilterProductProps> = ({ handerChangeFilter
                         label={option}
                         name={NameType}
                         value={option}
-                        className="mr-20"
+                        className="mr-20 filter-dropdown"
                         checked={selectedFilters[NameType]?.includes(option)}
                         onChange={(e) =>
                           handleCheckboxChange(NameType, option, e.target.checked)

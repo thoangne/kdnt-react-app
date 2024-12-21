@@ -5,6 +5,7 @@ import sizeConfigs from "../../configs/sizeConfigs";
 import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
+import logo from "../../assets/images/logo.jpg"
 
 const Sidebar = () => {
   return (
@@ -18,7 +19,8 @@ const Sidebar = () => {
           boxSizing: "border-box",
           borderRight: "0px",
           backgroundColor: colorConfigs.sidebar.bg,
-          color: colorConfigs.sidebar.color
+          color: colorConfigs.sidebar.color,
+          background: "#27678F"
         }
       }}
     >
@@ -29,7 +31,8 @@ const Sidebar = () => {
             direction="row"
             justifyContent="center"
           >
-            {/* <Avatar src={assets.images.logo} /> */}
+            <Avatar src={logo} sx={{ width: 150, height: 150 }} />
+
           </Stack>
         </Toolbar>
         {appRoutes.map((route, index) => (

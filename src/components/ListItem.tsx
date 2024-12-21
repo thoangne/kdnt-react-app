@@ -36,7 +36,7 @@ function ListItem() {
         {listProduct && listProduct.length > 0 ? (
           listProduct.map((product) => (
             <Col key={product.productId} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <Link to = {`/product-detail/${product.productId}`}>
+              <Link className="link-card" to = {`/product-detail/${product.productId}`}>
                 <ProductCard product={product} />
               </Link>
             </Col>

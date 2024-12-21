@@ -56,39 +56,61 @@ export const UpdateQuantityShoppingCart = async (shoppingCartId: string, quantit
 
 
 export const AddShoppingCart = async (specifications: Specifications, user: User, quantity: number) => {
-  
   try {
     const token = await getToken();
     if (!token) {
       throw new Error("Token không tồn tại, vui lòng đăng nhập lại.");
-      
     }
 
-    // Tạo đối tượng data mà không cần khai báo chi tiết từng thuộc tính, sử dụng thẳng đối tượng specifications và user
+    // Tạo đối tượng data
     const data = {
-      specifications: specifications, // Truyền thẳng đối tượng specifications
-      user: user,                     // Truyền thẳng đối tượng user
-      quantity: quantity               // Số lượng sản phẩm
+      specifications: specifications,
+      user: user,
+      quantity: quantity,
     };
 
-    // Gửi yêu cầu POST với body là data
+    // Gửi yêu cầu POST
     const response = await axios.post(`/shoppingCarts`, data, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
     });
+
     if (response.data) {
       openSuccessNotification("Thành công", "Số lượng sản phẩm đã được cập nhật.");
     }
+
     return response.data;
 
-  } catch (error) {
-    console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
-    openFailNotification("Thêm sản phẩm vào giỏ hàng thất bại!", "Vui lòng đăng nhập!");
-    return null; // Trả về null nếu gặp lỗi
+  } catch (error: any) {
+    // Kiểm tra lỗi từ server
+    if (error.response) {
+      const status = error.response.status;
+      const errorMessage = error.response.data.message || 'Lỗi không xác định';
+
+      if (status === 400) {
+        if (errorMessage === "Sản phẩm đã hết hàng!") {
+          openFailNotification("Sản phẩm đã hết hàng", "Vui lòng chọn sản phẩm khác.");
+        } else {
+          openFailNotification("Lỗi đầu vào", errorMessage);
+        }
+      } else if (status === 500) {
+        // Lỗi từ server (internal server error)
+        openFailNotification("Lỗi hệ thống", "Đã có lỗi xảy ra. Vui lòng thử lại sau.");
+      } else {
+        // Các lỗi khác
+        openFailNotification("Thêm sản phẩm vào giỏ hàng thất bại!", "Vui lòng thử lại!");
+      }
+    } else {
+      // Nếu lỗi không phải từ phản hồi của server
+      openFailNotification("Lỗi mạng hoặc máy chủ", "Không thể kết nối đến máy chủ. Vui lòng thử lại!");
+    }
+
+    return null; // Trả về null khi gặp lỗi
   }
 };
+
 
 
 export const deleteShoppingCartByUser = async (shoppingCartId: string) => {
@@ -178,7 +200,7 @@ export const LoadAllShoppingCart = () => {
               shoppingCartId = {item.productCartId}
               name={item.productName} // Hiển thị dữ liệu thực
               prePrice={item.specifications?.price} // Thay thế giá trị thực từ API
-              undPrice={20000} // Thay thế giá trị thực từ API
+              undPrice={item.specifications?.price * (1- item.specifications?.discountPercent / 100)} // Thay thế giá trị thực từ API
               typeItem={`${item.specifications?.color + " / " + item.specifications?.height + " / " + item.specifications?.width + " / " + item.specifications?.length}` } // Hiển thị dữ liệu thực
               imageURL={imageUrls[item.productCartId] || "link-to-default-image.jpg"}
               initialQuantity={item.quantity} // URL ảnh sản phẩm

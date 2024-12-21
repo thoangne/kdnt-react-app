@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import noithat from "../assets/noithat.jpg";
 import "./LoginForm.scss";
@@ -8,19 +8,36 @@ import { LoginAPI } from "../services/AuthorService";
 import { Login } from "../initialize/type";
 import {setToken} from "../services/TokenService"
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
+
 
 const LoginForm: React.FC = () => {
   const [Logininfo, setLoginInfo] = useState<Login>(LoginDefalt);
   const [error, setError] = useState<string>("");
+  const { myInfo } = useUserContext();
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Kiểm tra và điều hướng khi myInfo đã có giá trị
+    if (myInfo) {
+      if (myInfo.roles[0]  === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");  // Điều hướng về trang chủ
+        console.log(myInfo.roles);
+      }
+    }
+  }, [myInfo, navigate]);  // Chỉ chạy khi myInfo thay đổi
+
 
   const LoginHandler = async (Logininfo: Login) => {
     console.log(Logininfo);
     try {
       const res = await LoginAPI(Logininfo);
       setToken(res.data.data.token);
-      navigate("/home");
+
+      
       window.location.reload()
     } catch (err) {
       console.error("Lỗi đăng nhập:", err);

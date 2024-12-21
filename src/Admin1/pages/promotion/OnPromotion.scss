@@ -1,0 +1,113 @@
+.promotion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  
+    h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #27678F;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  
+    button {
+      background-color: #27678F;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #27678F;
+      }
+    }
+  }
+  
+  .table-container {
+    overflow-x: auto; /* Kích hoạt thanh cuộn ngang */
+    max-height: 500px; /* Đặt chiều cao tối đa cho container */
+    overflow-y: auto; /* Kích hoạt thanh cuộn dọc */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      background-color: #27678F;
+      border-radius: 4px;
+    }
+  
+    ::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+    }
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  
+    thead {
+      background-color: #27678F;
+      position: sticky; /* Cố định thead khi cuộn */
+      top: 0;
+      z-index: 1;
+  
+      tr th {
+        color: #fff;
+        font-weight: bold;
+        padding: 12px;
+        text-align: left;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+    }
+  
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background-color: #f2f2f2;
+        }
+  
+        &:hover {
+          background-color: #e6f7ff;
+          transition: background-color 0.3s ease;
+        }
+  
+        td {
+          padding: 12px;
+          font-size: 0.9rem;
+          color: #333;
+          text-align: left;
+  
+          a {
+            color: #007bff;
+            text-decoration: none;
+  
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+  
+          &.active {
+            color: green;
+            font-weight: bold;
+          }
+  
+          &.inactive {
+            color: red;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  

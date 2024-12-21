@@ -117,12 +117,12 @@ function Header() {
                           <Link className="text-under" to="/my-info">
                             <div className="t-under-name">Tài khoản của bạn</div>
                           </Link>
-                            <Link className="text-under" to="/">
-                              <span className="t-under-name">Danh sách địa chỉ</span>
+                            <Link className="text-under" to="/my-orders">
+                              <span className="t-under-name">Đơn hàng của bạn</span>
                             </Link>
                           <div>
                             <Link className="text-under" to="/">
-                              <Button onClick={Logout}>Đăng xuất</Button>
+                              <button className="logout-button" onClick={Logout}>Đăng xuất</button>
                             </Link>
                           </div>
 
@@ -159,35 +159,25 @@ function Header() {
           </Col>
         </Row>
       </Container>
-      <Container className="d-flex justify-content-center">
+      <Container className="nav-container">
         <ul
           id="header-list__nav"
-          className="header-list__list d-flex align-self-end"
+          className="header-list__list d-flex"
         >
           <li className="header-list__list-item">
             <DropdownNav title="Doanh mục"></DropdownNav>
           </li>
           <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
+            <DropdownNav title="Khuyến mãi"></DropdownNav>
           </li>
           <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
+            <DropdownNav title="Tin tức"></DropdownNav>
           </li>
           <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
+            <DropdownNav title="Show room"></DropdownNav>
           </li>
-          <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
-          </li>
-          <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
-          </li>
-          <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
-          </li>
-          <li className="header-list__list-item">
-            <DropdownNav title="Sản phẩm"></DropdownNav>
-          </li>
+
+
         </ul>
       </Container>
     </Navbar>

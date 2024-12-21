@@ -1,0 +1,74 @@
+.products-container{
+  margin-top: 30px;
+  max-width: 100%; /* Để bảng không vượt quá khung cha */
+  max-height: 520px; /* Giới hạn chiều cao của bảng */
+  overflow-x: auto; /* Thêm thanh cun ngộang */
+  // overflow-y: auto; /* Thêm thanh cuộn dọc */
+  border: 1px solid #ccc; /* Tạo viền */
+  border-radius: 4px; /* Bo tròn góc */
+  background-color: #f9f9f9; /* Màu nền */
+  td{
+    padding: 10px !important;
+    border-top: 1px solid #ccc;
+    a{
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+
+
+  .products-container::-webkit-scrollbar {
+    height: 8px; /* Chiều cao của thanh cuộn ngang */
+  }
+
+  .products-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Màu nền của thanh cuộn */
+    border-radius: 0px;
+  }
+
+  .products-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Màu của thanh cuộn */
+    border-radius: 0px;
+    transition: background-color 2s ease; /* Hiệu ứng chuyển màu khi hover */
+  }
+
+  .products-container::-webkit-scrollbar-thumb:hover {
+    background-color: black; /* Màu khi hover */
+  }
+
+
+  .products-thead{
+    position: sticky; /* Cố định vị trí */
+    top: 0; /* Định vị tại đầu bảng */
+    z-index: 1; /* Ưu tiên hiển thị */
+
+    text-align: center;
+    background-color: #27678F;
+    color: white;
+    font-size: 18px;
+    tr{
+      td{
+        padding: 15px 0;
+      }
+    }
+  }
+
+  tbody{
+    text-align: center;
+  }
+
+  .product-name {
+    max-width: 240px; // Đặt chiều rộng tối đa cho cột
+    overflow: hidden; // Ẩn phần vượt quá chiều rộng
+    // text-overflow: ellipsis; // Hiển thị dấu ba chấm nếu tên quá dài
+    // white-space: nowrap; // Ngừng xuống dòng trong tên sản phẩm
+  }
+
+  
+}
+  
+
+
+
+

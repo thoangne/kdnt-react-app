@@ -1,6 +1,6 @@
 import { Order, OrderItem } from "../initialize/type";
 import axios from "./CustomizeAxios";
-import { getToken } from "./TokenService";
+import { checkToken, getToken } from "./TokenService";
 
 export const createOrderAPI = async (order: Order) => {
     const token = await getToken();
@@ -38,5 +38,87 @@ export const createOrderItemAPI = async (orderItem: OrderItem) => {
     }
 };
 
+
+export const fetchOrderByStatus = async (status: string) => {
+    const token = await checkToken();
+    try {
+        const response = await axios.get(`/orders/status/${status}` , {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+    });
+        return response.data; // Trả về dữ liệu từ API
+    } catch (error) {
+        console.error("Lỗi khi gọi API lấy đơn hàng theo trạng thái: ", error);
+        throw error; // Ném lỗi để xử lý ở phía gọi hàm
+    }
+};
+
+
+export const fetchAllOrders = async () => {
+    const token = await checkToken();
+    try {
+        const response = await axios.get(`/orders` , {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+    });
+        return response.data; // Trả về dữ liệu từ API
+    } catch (error) {
+        console.error("Lỗi khi gọi API lấy đơn hàng theo trạng thái: ", error);
+        throw error; // Ném lỗi để xử lý ở phía gọi hàm
+    }
+};
+
+
+export const updateStatusOrderAPI = async (order: Order) => {
+    const token = await checkToken();
+    try {
+        const response = await axios.put("/orders/update-status", order , {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+    });
+        return response.data; // Trả về dữ liệu từ API
+    } catch (error) {
+        console.error("Lỗi khi gọi API xác nhân đơn hàng: ", error);
+        throw error; // Ném lỗi để xử lý ở phía gọi hàm
+    }
+};
+
+export const cancelOrderAPI = async (orderId: string) => {
+    const token = await checkToken();
+    try {
+        const response = await axios.put(`/orders/cancel-order/${orderId}`,{}, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+    });
+        return response.data; // Trả về dữ liệu từ API
+    } catch (error) {
+        console.error("Lỗi khi gọi API hủy đơn hàng: ", error);
+        throw error; // Ném lỗi để xử lý ở phía gọi hàm
+    }
+};
+
+export const fetchOrderByUserAndStatus = async (userId: string, status: string) => {
+    const token = await checkToken();
+    try {
+        const response = await axios.get(`/orders/${userId}/${status}` , {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+    });
+        return response.data; // Trả về dữ liệu từ API
+    } catch (error) {
+        console.error("Lỗi khi gọi API lấy đơn hàng theo trạng thái: ", error);
+        throw error; // Ném lỗi để xử lý ở phía gọi hàm
+    }
+};
 
 

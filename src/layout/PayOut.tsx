@@ -9,6 +9,8 @@ import { Order, OrderItem, ShoppingCart, User } from "../initialize/type";
 import { orderDefautl } from "../initialize/defaultType";
 import { createOrderAPI, createOrderItemAPI } from "../services/OrderService";
 import { openFailNotification, openSuccessNotification } from "../components/Notification";
+import { PayPalButton } from "react-paypal-button-v2";
+import { fetchPayPalClientId } from "../services/PaymentService";
 
 export const PayOut = () => {
   const [loading, setLoading] = useState(false);
@@ -22,8 +24,42 @@ export const PayOut = () => {
   const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
   const [shoppingCartItem, setShoppingCartItem] = useState<ShoppingCart[]>([]);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+
+  const [sdkReady, setSdlReady] = useState(false);
+
   const { myInfo } = useUserContext();
+  
+
+  const [payment, setPayment] = useState<String>();
   const userInfo = myInfo as User;
+
+
+  const HandlerPayment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPayment(e.target.value);
+  }
+
+  const addPayPalScript = async () => {
+    try {
+      const {data} = await fetchPayPalClientId();
+      const script = document.createElement('script');
+      script.src = `https://sandbox.paypal.com/sdk/js?client-id=${data}`;
+      script.async = true;
+      script.onload = () => setSdlReady(true);
+      script.onerror = (err) => console.error("Error loading PayPal script", err);
+
+      document.body.appendChild(script);
+    } catch (error) {
+      console.error("Failed to fetch PayPal client ID", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!window.paypal) {
+      addPayPalScript();
+    } else {
+      setSdlReady(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (myInfo) {
@@ -41,6 +77,7 @@ export const PayOut = () => {
   }, []);
 
   useEffect(() => {
+    
     if (selectProvince) {
       fetchDistrictsByProvinceId(selectProvince).then((res) => setDestricts(res.results));
     }
@@ -80,13 +117,13 @@ export const PayOut = () => {
   };
   
   const OrderHandler = async () => {
+    
     try {
       // Tạo đơn hàng trước
       const res = await createOrderAPI(order);
   
       if (res) {
         const createdOrder = res.data; // Đối tượng Order vừa tạo
-        console.log("Order Created Successfully: ", createdOrder);
   
         // Thêm tất cả các OrderItem
         const itemsPromises = productCart.map((item: ShoppingCart) => 
@@ -116,8 +153,9 @@ export const PayOut = () => {
     }
   };
   
-  
-  
+
+
+
     
 
   return (
@@ -142,7 +180,7 @@ export const PayOut = () => {
 
             <FormInput controlid="" caption="" type="" placeholder="Họ" value={myInfo?.firstName} />
             <FormInput controlid="" caption="" type="" placeholder="Tên" value={myInfo?.lastName} />
-            <FormInput controlid="" caption="" type="" placeholder="Số điện thoại" value="" />
+            <FormInput controlid="" caption="" type="" placeholder="Số điện thoại" value={myInfo?.phoneNumber} />
             <FormInput controlid="" caption="" type="" placeholder="Địa chỉ" value={order.street} onChange={handleAddressChange} />
 
             <Form className="d-flex">
@@ -194,14 +232,37 @@ export const PayOut = () => {
 
           <h3>Phương thức thanh toán</h3>
           <Form className="custom-box-gr">
-            <Form.Check type="radio" label="Thanh toán bằng tiền mặt" name="paymentMethod" />
-            <Form.Check type="radio" label="Thanh toán bằng chuyển khoản" name="paymentMethod" />
-            <Form.Check type="radio" label="Thanh toán online qua cổng VNPay" name="paymentMethod" />
-            <Form.Check type="radio" label="Ví MoMo" name="paymentMethod" />
+            <Form.Check type="radio" value="" label="Thanh toán bằng tiền mặt" name="paymentMethod" onChange={HandlerPayment}/>
+            <Form.Check type="radio" value="paypal" label="Thanh toán Paypal" name="paymentMethod" checked={payment === 'paypal'} onChange={HandlerPayment} />
+            {/* <Form.Check type="radio" value="vnpay" label="Thanh toán online qua cổng VNPay" name="paymentMethod" checked={payment === 'vnpay'} onChange={HandlerPayment} /> */}
+            {/* <Form.Check type="radio" value="momo" label="Ví MoMo" name="paymentMethod" checked={payment === 'momo'} onChange={HandlerPayment}/> */}
           </Form>
 
           <div className="custom-subb">
-            <Button onClick={OrderHandler}>Hoàn tất đơn hàng</Button>
+            {
+              payment === 'paypal' && sdkReady?  
+
+              (<div className="paypal-btn"><PayPalButton
+                amount={totalPrice?.toString()}
+                // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                onSuccess={(details, data) => {
+                  openSuccessNotification("Thanh toán bằng PayPal thành công!", "");
+                  OrderHandler();
+                  // OPTIONAL: Call your server to save the transaction
+                  return fetch("/paypal-transaction-complete", {
+                    method: "post",
+                    body: JSON.stringify({
+                      orderID: data.orderID
+                    })
+                  });
+                }}
+
+                onError={() => {
+                  openFailNotification("Thanh toán PayPal thất bại!", "");
+                }}
+              /></div>): (<Button onClick={OrderHandler}>Hoàn tất đơn hàng</Button>)
+            }
+            
           </div>
         </Col>
         <Col xs={5}>
@@ -250,7 +311,7 @@ export const PayOut = () => {
                 <strong>Tổng cộng</strong>
               </Col>
               <Col xs={4} className="text-end">
-                <strong>{totalPrice}</strong>
+                <h3>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'VND' }).format(totalPrice)}</h3>
               </Col>
             </Row>
           </Col>

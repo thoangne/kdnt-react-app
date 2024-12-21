@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./Product.css";
 import { HiOutlineSearch } from "react-icons/hi";
 import RecentProduct from "./RecentProduct/RecentProduct";
-import ProductInsertModel from "./ProductInsertModel";
+import ProductInsertModel from "./component/modal/ProductInsertModel";
+import SearchProductComponent from "../../../components/search/SearchProductComponent";
 
 export default function Product() {
   const [showForm, setShowForm] = useState(false);
@@ -14,7 +14,11 @@ export default function Product() {
     setShowForm(true);
   };
 
-  const handleEditProduct = (product) => {
+  
+
+
+
+  const handleEditProduct = (product: any) => {
     setEditingProduct(product);
     setShowForm(true);
   };
@@ -28,19 +32,14 @@ export default function Product() {
     <div>
       <div className="header-container">
         <h1>Sản Phẩm</h1>
-        <ProductInsertModel></ProductInsertModel>
+        
         <div className="right-actions">
-          <span>Xuất file</span>
+          <ProductInsertModel></ProductInsertModel>
         </div>
       </div>
 
-      <div className="relative">
-        <HiOutlineSearch fontSize={20} className="icon" />
-        <input type="text" placeholder="Tìm kiếm..." className="custom-input" />
-        <select className="dropdown-filter">
-          <option value="">Danh mục</option>
-        </select>
-      </div>
+      
+      {/* <SearchProductComponent></SearchProductComponent> */}
      
       <div className="flex-row-fullwidth">
         <RecentProduct onEdit={handleEditProduct} />

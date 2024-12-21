@@ -61,6 +61,7 @@ export const FilterCheckboxMenu: React.FC<FilterProductProps> = ({ handerChangeF
 
     return (
         <div>
+            <span>BỘ LỌC</span>
             <CheckboxMenu
                 label='DANH MỤC'
                 options={subCategories.map(subCategory => subCategory.name)}

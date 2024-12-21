@@ -1,6 +1,7 @@
 import React from "react";
 import { Checkbox, Popover, Button, Row, Col } from "antd";
-import { FilterOutlined } from "@ant-design/icons"; // Import icon thay thế
+import { FilterOutlined } from "@ant-design/icons"; // Import icon thay 
+import "./CheckBoxmenu.scss";
 
 // Định nghĩa kiểu cho props của CheckboxMenu
 interface CheckboxMenuProps {
@@ -72,7 +73,7 @@ class CheckboxMenu extends React.Component<CheckboxMenuProps, CheckboxMenuState>
     const { label } = this.props;
     return (
       <Popover content={this.checkboxRender()} trigger="click" placement="bottomLeft">
-        <Button>
+        <Button className="filter-dropdown">
           {label}
         </Button>
       </Popover>

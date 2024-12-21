@@ -1,0 +1,139 @@
+$header-bg: linear-gradient(90deg, #38b2ac, #4299e1);
+$text-color: #2c58dc;
+$box-bg-color: #1f2937;
+$chart-bg-gradient-sales: linear-gradient(135deg, #38b2ac, #4299e1);
+$chart-bg-gradient-orders: linear-gradient(135deg, #f6ad55, #ed8936);
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+$card-radius: 12px;
+
+.dashboard {
+  font-family: Arial, sans-serif;
+  color: $text-color;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 5px;
+
+  &-header {
+    background: $header-bg;
+    width: 100vw; // Làm header bao phủ toàn màn hình
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    margin: 0;
+    border-bottom: 5px solid #ddd;
+
+    h1 {
+      margin: 0;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+    }
+
+    .search {
+      input {
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        box-shadow: 0px 2px 5px $box-shadow-color;
+      }
+    }
+  }
+
+  &-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background: $header-bg;
+    .stat-box {
+      background: #fff;
+      color: #333;
+      padding: 20px;
+      border-radius: $card-radius;
+      box-shadow: 0px 5px 15px $box-shadow-color;
+      position: relative;
+      text-align: center;
+
+      h2 {
+        font-size: 1.1em;
+        color: #555;
+      }
+
+      p {
+        font-size: 2em;
+        margin: 5px 0;
+        font-weight: bold;
+      }
+
+      span {
+        color: #888;
+        font-size: 0.9em;
+      }
+
+      .icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        padding: 8px;
+        border-radius: 50%;
+        font-size: 1.2em;
+      }
+
+      .traffic-icon {
+        background-color: #38b2ac;
+      }
+
+      .new-users-icon {
+        background-color: #e53e3e;
+      }
+
+      .sales-icon {
+        background-color: #ed8936;
+      }
+
+      .performance-icon {
+        background-color: #4299e1;
+      }
+    }
+  }
+
+  &-overview {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  
+    .sales-chart,
+    .orders-chart {
+      flex: 1;
+      background: #ffffff; // Nền trắng cho cả hai khung
+      border-radius: $card-radius;
+      box-shadow: 0px 5px 15px $box-shadow-color;
+      padding: 20px;
+      height: 400px; // Đảm bảo chiều cao cố định
+      display: flex;
+      flex-direction: column;
+  
+      h3 {
+        color: $text-color;
+        //font-size: 1.5em;
+        margin-bottom: 10px;
+        //text-align: center; // Tiêu đề căn giữa
+      }
+  
+      canvas {
+        flex: 1; // Biểu đồ chiếm toàn bộ phần không gian còn lại
+        width: 100%; // Căn chỉnh chiều rộng theo khung chứa
+        max-height: 350px; // Hạn chế chiều cao để tránh tràn
+        object-fit: contain; // Đảm bảo không bị cắt xén
+        margin: 0 auto; // Căn giữa biểu đồ bên trong khung
+      }
+    }
+  }
+  
+  
+  
+}

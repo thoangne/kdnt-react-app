@@ -63,7 +63,7 @@ export const DropdownNav = ({ title }: { title: string }) => {
               {category.subCategory && category.subCategory.length > 0 && (
                 <Dropdown.Submenu className='xxx'>
                   {category.subCategory.map((sub) => (
-                    <Dropdown.Item
+                    <Dropdown.Item className='dropdown-item'
                       key={sub.id}
                       onClick={() => handleSubItemClick(sub.name, sub.id)}
                     >

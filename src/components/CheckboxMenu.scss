@@ -1,0 +1,24 @@
+.filter-dropdown{
+    border-radius: 0;
+    border: 1px solid #e7e7e7;
+    padding: 10px 30px;
+    margin: 20px 10px;
+    &:hover{
+        border: 1px solid #EF683A !important;
+        color: #EF683A !important;
+    }
+    &:focus{
+        border: 1px solid #EF683A !important;
+        color: #EF683A !important;
+    }
+}
+
+.ant-popover-inner{
+    border-radius: 0 !important;
+    // width: 150px;
+
+
+    .ant-checkbox-inner{
+        border-radius: 0;
+    }
+}

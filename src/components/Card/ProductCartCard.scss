@@ -1,0 +1,38 @@
+.shopping-cart-container{
+    // width: 90%;
+    position: relative;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    .pre-price{
+        font-size: 20px;
+        color: #EF683A;
+        font-weight: 700;
+    }
+    .und-price{
+        font-size: 16px;
+    }
+    .p-name{
+        width: 80%;
+        margin: 12px 0;
+        font-weight: 700;
+        .delete-p-button{
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            border: none;
+            background-color: transparent;
+            font-size: 30px;
+        }
+
+    }
+    .type-item{
+        font-size: 14px;
+    }
+    .col-3{
+        padding: 0;
+    }
+    .col-9{
+        padding: 0;
+    }
+}

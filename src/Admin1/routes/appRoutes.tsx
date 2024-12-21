@@ -18,6 +18,9 @@ import CustomersPage from "../pages/customers/CustomersPage";
 import EmployeesPage from "../pages/employees/EmployeesPage";
 import { RiProductHuntLine } from "react-icons/ri";
 import { FaUserTie, FaUser } from "react-icons/fa";
+import OrderTracking from "../pages/orders/OrderTracking";
+import Dashboard from "../pages/installation/DashBoard";
+import OnPromotion from "../pages/promotion/onPromotion";
 const appRoutes: RouteType[] = [
   {
     index: true,
@@ -26,7 +29,7 @@ const appRoutes: RouteType[] = [
   },
   {
     path: "overview",
-    element: <InstallationPage />,
+    element: <Dashboard />,
     state: "overview",
     sidebarProps: {
       displayText: "Tổng quan",
@@ -65,86 +68,34 @@ const appRoutes: RouteType[] = [
   },
 
   {
-    path: "orders",
-    element: <ComponentPageLayout />,
-    state: "orders",
+    path: "order",
+    element: <OrderTracking />,
+    state: "order",
     sidebarProps: {
       displayText: "Đơn hàng",
-      icon: <AppsOutlinedIcon />
-    },
-    child: [
-      {
-        path: "delivered",
-        element: <AlertPage />,
-        state: "orders.delivered",
-        sidebarProps: {
-          displayText: "Đã giao"
-        },
-      },
-      {
-        path: "processing", // Đã sửa từ "/component/button" thành "button"
-        element: <EmployeesPage />,
-        state: "orders.processing",
-        sidebarProps: {
-          displayText: "Đang xử lý"
-        }
-      },
-      {
-        path: "delivering", // Đã sửa từ "/component/button" thành "button"
-        element: <ButtonPage />,
-        state: "orders.delivering",
-        sidebarProps: {
-          displayText: "Đang giao"
-        }
-      }
-    ]
+      icon: <FileDownloadOutlinedIcon />
+    }
   },
 
   {
     path: "promotion",
-    element: <ComponentPageLayout />,
+    element: <OnPromotion />,
     state: "promotion",
     sidebarProps: {
       displayText: "Khuyến mãi",
       icon: <AppsOutlinedIcon />
-    },
-    child: [
-      {
-        path: "on-promotion",
-        element: <AlertPage />,
-        state: "promotion.on-promotion",
-        sidebarProps: {
-          displayText: "Đang khuyến mãi"
-        },
-      },
-      {
-        path: "promotied", // Đã sửa từ "/component/button" thành "button"
-        element: <EmployeesPage />,
-        state: "promotion.processing",
-        sidebarProps: {
-          displayText: "Đã khuyến mãi"
-        }
-      },
-      {
-        path: "create-promotion", // Đã sửa từ "/component/button" thành "button"
-        element: <ButtonPage />,
-        state: "promotion.delivering",
-        sidebarProps: {
-          displayText: "Thêm khuyến mãi"
-        }
-      }
-    ]
+    }
   },
 
-  {
-    path: "employees",
-    element: <EmployeesPage />,
-    state: "employees",
-    sidebarProps: {
-      displayText: "Nhân viên",
-      icon: <FaUserTie  />
-    }
-  },  
+  // {
+  //   path: "employees",
+  //   element: <EmployeesPage />,
+  //   state: "employees",
+  //   sidebarProps: {
+  //     displayText: "Nhân viên",
+  //     icon: <FaUserTie  />
+  //   }
+  // },  
 
   {
     path: "customers",

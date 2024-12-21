@@ -8,6 +8,7 @@ import { useUserContext } from "../context/UserContext";
 import { downloadFileS3 } from "../services/StorageService";
 import { Link, useNavigate } from "react-router-dom";
 import { openFailNotification } from "../components/Notification";
+import { message } from 'antd';
 
 export const CheckOut = () => {
   const [shoppingCartItem, setShoppingCartItem] = useState<ShoppingCart[]>([]);
@@ -16,11 +17,18 @@ export const CheckOut = () => {
   
   const PaymentHander = () => {
     
+    if(shoppingCartItem.length === 0){
+      openFailNotification("Vui lòng thêm sản phẩm vào giỏ hàng!","")
+      //Bắt lỗi ngay tại đây không cho chạy lệnh phía dưới
+      return;
+    }
+
     if(myInfo){
       navigate("/payout");
     }else{
       openFailNotification("Vui lòng đăng nhập để tiến hành thành toán!", "");
     }
+
   }
 
   useEffect(() => {
@@ -51,7 +59,7 @@ export const CheckOut = () => {
           <h3>Thông tin đơn hàng</h3>
           <h3>Tổng tiền</h3>
           <h3 className="hellll">
-            {shoppingCartItem.reduce((total, item) => total + item.specifications?.price, 0).toLocaleString("vi-VN")} VND
+            {shoppingCartItem.reduce((total, item) => total + (item.specifications?.price * (1 - item.specifications?.discountPercent / 100)), 0).toLocaleString("vi-VN")} VND
           </h3> {/* Tính tổng tiền */}
           {/* <Link to={"/payout"}><button className="btn-checkout">Thanh toán</button></Link> */}
 

@@ -1,4 +1,4 @@
-import  {Product,Category, Login, User, Resgister, FilerObject, Order, Specifications}  from "./type";
+import  {Product,Category, Login, User, Resgister, FilerObject, Order, Specifications, SpecificationRequest}  from "./type";
 
 export const CategoryDefault:Category = {
     categoryId: "hello",
@@ -20,7 +20,8 @@ export const ProductDefault: Product = {
   description:"",
   createAt: undefined,
   status: false,
-  specifications: null
+  specifications: null,
+  subCategory: null
 };
 export const LoginDefalt: Login = {
   username: "",
@@ -71,3 +72,17 @@ export const specificationsDefault: Specifications = {
   size: '',
   image: null, // Nếu `image` là chuỗi
 };
+
+export const SpecificationRequestDefault: SpecificationRequest = {
+  price: 0,
+  quantity: 0,
+  length: "",
+  width: "",
+  height: "",
+  color: "",
+  size: "",
+  product: {
+    productId: ""
+  }
+};
+

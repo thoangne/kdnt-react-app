@@ -1,0 +1,13 @@
+.edit-product-btn {
+    padding: 0 5px;
+    margin-right: 10px;
+    background-color: inherit;
+    color: #F0A200;
+    font-size: 30px;
+    border: none;
+    font-weight: 500;
+    &:hover{
+        background-color: #F0A200;
+        color: white;
+    }
+}

@@ -48,3 +48,21 @@ export const UpdateUserInfoAPI = async (userId: string,user: User) => {
     }
 };
 
+
+export const fetchAllUser = async() => {
+    const token = await checkToken();
+    try {
+      const res = await axios.get(`/user`, {
+        headers: {
+          'Content-Type': 'application/json',
+           'Authorization': `Bearer ${token}`
+        },
+      });
+  
+      return res.data;
+    } catch (error) {
+      console.error("Lỗi khi lấy tất cả sản phẩm:", error);
+      throw error; // Ném lỗi để xử lý ở nơi gọi
+    }
+  }
+

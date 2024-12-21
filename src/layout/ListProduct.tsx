@@ -56,7 +56,9 @@ const ListProduct: React.FC = () => {
           <img id='img-banner' src={phongNguBanner} alt="Banner" />
         </Carousel.Item>
       </Carousel>
-      <FilterCheckboxMenu handerChangeFilterObject={setFilterObject}></FilterCheckboxMenu>
+      <div className='filter-container'>
+        <FilterCheckboxMenu handerChangeFilterObject={setFilterObject}></FilterCheckboxMenu>
+        </div>
       <div className="product-list">
         <Container>
           <p>trang-chu / danh-muc / {categoryName}</p>
@@ -64,7 +66,7 @@ const ListProduct: React.FC = () => {
             {products && products.length > 0 ? (
               products.map((product) => (
                 <Col key={product.productId} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                  <Link to={`/product-detail/${product.productId}`}>
+                  <Link className='link-p-card' to={`/product-detail/${product.productId}`}>
                     <ProductCard product={product} />
                   </Link>
                 </Col>

@@ -1,0 +1,89 @@
+
+
+// .product-menu {
+//   // padding: 20px 0;
+//   tr {
+    
+//     td {
+//       color: white;
+//     }
+//   }
+//   background-color: #27678F;
+//   border-radius: 4px;
+
+//   // position: sticky;
+//   // top: 0; // Giữ tiêu đề ở trên cùng
+//   // z-index: 10; // Đảm bảo rằng tiêu đề luôn ở trên các dòng dữ liệu
+//   // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+// }
+
+// .delete-button {
+//   border-radius: none;
+//   font-size: 25px;
+//   color: #A10002;
+//   background-color: inherit;
+//   border: none;
+// }
+
+// td {
+//   text-align: center;
+//   border: 1px solid #F5F5F5;
+// }
+
+// .status {
+//   color: white;
+
+//   .con-hang {
+//     padding: 5px 10px;
+//     background-color: #33A140;
+//     border-radius: 20px;
+//   }
+
+//   .het-hang {
+//     padding: 5px 10px;
+//     background-color: #F6030A;
+//     border-radius: 20px;
+//   }
+// }
+
+// .custom-card {
+//   width: 100%;
+//   max-width: 100%;
+// }
+
+// // .table-container {
+// //   max-height: 400px; /* Điều chỉnh chiều cao của khu vực bảng */
+// //   overflow-y: auto; /* Hiển thị thanh cuộn dọc nếu cần thiết */
+// // }
+
+// table {
+//   width: 100%;
+//   border-collapse: collapse;
+
+//   tbody {
+//     tr {
+//       &:nth-child(odd) {
+//         background-color: #f9f9f9; /* Màu nền cho hàng lẻ */
+//       }
+
+//       &:nth-child(even) {
+//         background-color: #ffffff; /* Màu nền cho hàng chẵn */
+//       }
+
+//       &:hover {
+//         background-color: #e8f4fa; /* Màu nền khi hover */
+//       }
+//     }
+//   }
+// }
+
+// thead {
+//   background-color: #f1f1f1;
+// }
+
+// .name-column {
+//   max-width: 250px; // Đặt chiều rộng tối đa cho cột
+//   overflow: hidden; // Ẩn phần vượt quá chiều rộng
+//   // text-overflow: ellipsis; // Hiển thị dấu ba chấm nếu tên quá dài
+//   // white-space: nowrap; // Ngừng xuống dòng trong tên sản phẩm
+// }

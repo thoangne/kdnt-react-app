@@ -1,11 +1,30 @@
 import axios from "./CustomizeAxios";
-import {FilterObject} from '../initialize/type';
+import {FilterObject, Product, ProductRequest} from '../initialize/type';
+import { openFailNotification, openSuccessNotification } from "../components/Notification";
+import { checkToken } from "./TokenService";
 export const fetchAllProduct = async() => {
   try{
     const res = await axios.get("/products");
     return res.data;
   }catch(error){
     console.error("Lỗi khi tìm kiếm sản phẩm:", error);
+    throw error;
+  }
+}
+
+export const fetchProductsNotInPromotion = async() => {
+  const token = await checkToken();
+  
+  try{
+    const res = await axios.get("/products/p-product", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return res.data;
+  }catch(error){
+    console.error("Lỗi khi lất sản phẩm chưa khuyết mãi:", error);
     throw error;
   }
 }
@@ -69,3 +88,57 @@ export const fetchProductById = async (productId: string) => {
 export const deleteProductById = (productId: string) => {
   return axios.get(`/products${productId}`);
 }
+
+
+export const addProductAPI = async(product: ProductRequest) => {
+  const token = await checkToken();
+  try {
+    const res = await axios.post(`/products`, product, {
+      headers: {
+        'Content-Type': 'application/json',
+         'Authorization': `Bearer ${token}`
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Lỗi khi thêm sản phẩm:", error);
+    throw error; // Ném lỗi để xử lý ở nơi gọi
+  }
+}
+
+export const updateProductAPI = async (productId: string, product: ProductRequest) => {
+  const token = await checkToken();
+  try {
+    const res = await axios.put(`/products/${productId}`, product, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Lỗi khi cập nhật sản phẩm:", error);
+    throw error; // Ném lỗi để xử lý ở nơi gọi
+  }
+};
+
+
+export const deleteProductAPI = async (productId: string) => {
+  const token = await checkToken();
+  try {
+    const res = await axios.delete(`/products/${productId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Lỗi khi xóa sản phẩm:", error);
+    throw error; // Ném lỗi để xử lý ở nơi gọi
+  }
+};
+
+
+

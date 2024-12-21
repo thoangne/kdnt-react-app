@@ -1,0 +1,31 @@
+.modal-dialog {
+    z-index: 1500;
+}
+.modal-content{
+    width: 800px;
+    border-radius: 0;
+    
+}
+
+.insert-product-btn{
+    font-weight: 700;
+    background-color: #EF683A;
+    border: none;
+    border-radius: 0;
+    &:hover{
+        background-color: #27678F;
+    }
+}
+// .btn{
+//     background-color: #33A140;
+//     border: none;
+//     &:hover{
+//         background-color: #236E4F;
+//     }
+// }
+
+.modal-body {
+    max-height: 500px; /* Điều chỉnh chiều cao tối đa của modal body */
+    overflow-y: auto;  /* Thêm thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    padding-right: 15px; /* Đảm bảo thanh cuộn không che nội dung */
+  }
